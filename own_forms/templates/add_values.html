@@ -83,7 +83,7 @@
                                         '<a class="btn btn-light" type="button" name="add_url_to_checkbox" id="add_url_to_checkbox" value="Add Url" onclick="AddUrlToCheckboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Url"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Url</a>'+
                                         '<a class="btn btn-light" type="button" name="add_image_url_to_checkbox" id="add_image_url_to_checkbox" value="Image Url" onclick="AddImageUrlToCheckboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Image Url"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Image Url</a>'+
                                         '<a class="btn btn-light" type="button" name="add_youtube_url_to_checkbox" id="add_youtube_url_to_checkbox" value="Youtube Url" onclick="AddYoutubeUrlToCheckboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Youtube Url"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Youtube Url</a>'+
-                                        '<a class="btn btn-light" type="button" name="add_image_url_to_checkbox" id="add_image_url_to_checkbox" value="Image Url" onclick="AddImageToCheckboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Image Url"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Image</a>'+
+                                        '<a class="btn btn-light" type="button" name="add_image_to_checkbox" id="add_image_to_checkbox" value="Image" onclick="AddImageToCheckboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Image"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Image</a>'+
                                         '</div>'+
                                     '</div>'+
                                     '<br/>'+
@@ -107,6 +107,7 @@
                                         '<a class="btn btn-light" type="button" name="add_url_to_selectbox" id="add_url_to_selectbox" value="Add Url" onclick="AddUrlToSelectboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Url"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Url</a>'+
                                         '<a class="btn btn-light" type="button" name="add_image_url_to_selectbox" id="add_image_url_to_selectbox" value="Image Url" onclick="AddImageUrlToSelectboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Image Url"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Image Url</a>'+
                                         '<a class="btn btn-light" type="button" name="add_youtube_url_to_selectbox" id="add_youtube_url_to_selectbox" value="Youtube Url" onclick="AddYoutubeUrlToSelectboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Youtube Url"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Youtube Url</a>'+
+                                        '<a class="btn btn-light" type="button" name="add_image_to_selectbox" id="add_image_to_selectbox" value="Image" onclick="AddImageToSelectboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Image"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Image</a>'+
                                         '</div>'+
                                     '</div>'+
                                     '<br/>'+
@@ -148,8 +149,11 @@
                     }
                     function AddImageToCheckboxField(id){
                         $("#body_"+id).append(
-                            '<div class="mb-3" id="value_'+v+'" style="display:flex;">'+
-                                '<input class="form-control" type="file" name="checkbox_field_'+id+'_'+v+'_uploaded_image" id="checkbox_field_'+id+'_'+v+'_uploaded_image" placeholder="Image Url" required><a class="btn btn-light" style="font-size:24px;color:brown;" onclick="RemoveValue('+v+')" value="Remove"><i class="fa fa-remove"></i></a>'+
+                            '<div class="mb-3" id="value_'+v+'">'+
+                                '<div style="display:flex;">'+
+                                    '<input class="form-control" type="file" name="checkbox_field_'+id+'_'+v+'_uploaded_image" id="checkbox_field_'+id+'_'+v+'_uploaded_image" placeholder="Image Url" required><a class="btn btn-light" style="font-size:24px;color:brown;" onclick="RemoveValue('+v+')" value="Remove"><i class="fa fa-remove"></i></a>'+
+                                '</div>'+
+                                '<small style="color: brown; id="imageHelp" >Max 500kb and  JPG, JPEG, PNG files</small>'+
                             '</div>'
                             );
                         console.log("Image upload added")
@@ -178,7 +182,7 @@
                     function AddUrlToSelectboxField(id){
                         $("#body_"+id).append(
                             '<div class="mb-3" id="value_'+v+'" style="display:flex;">'+
-                                '<input type="url" class="form-control" name="selectbox_field_'+id+'_'+v+'_url" id="checkbox_field_'+id+'_'+v+'_url" placeholder="Url" required><a class="btn btn-light" style="font-size:24px;color:brown;" onclick="RemoveValue('+v+')" value="Remove"><i class="fa fa-remove"></i></a>'+
+                                '<input type="url" class="form-control" name="selectbox_field_'+id+'_'+v+'_url" id="selectbox_field_'+id+'_'+v+'_url" placeholder="Url" required><a class="btn btn-light" style="font-size:24px;color:brown;" onclick="RemoveValue('+v+')" value="Remove"><i class="fa fa-remove"></i></a>'+
                             '</div>'
                             );
                         console.log("Value added")
@@ -187,16 +191,28 @@
                     function AddImageUrlToSelectboxField(id){
                         $("#body_"+id).append(
                             '<div class="mb-3" id="value_'+v+'" style="display:flex;">'+
-                                '<input type="url" class="form-control" name="selectbox_field_'+id+'_'+v+'_image" id="checkbox_field_'+id+'_'+v+'_image" placeholder="Image Url" required><a class="btn btn-light" style="font-size:24px;color:brown;" onclick="RemoveValue('+v+')" value="Remove"><i class="fa fa-remove"></i></a>'+
+                                '<input type="url" class="form-control" name="selectbox_field_'+id+'_'+v+'_image" id="selectbox_field_'+id+'_'+v+'_image" placeholder="Image Url" required><a class="btn btn-light" style="font-size:24px;color:brown;" onclick="RemoveValue('+v+')" value="Remove"><i class="fa fa-remove"></i></a>'+
                             '</div>'
                             );
                         console.log("Value added")
                         v++;
                     }
+                    function AddImageToSelectboxField(id){
+                        $("#body_"+id).append(
+                            '<div class="mb-3" id="value_'+v+'">'+
+                                '<div style="display:flex;">'+
+                                    '<input class="form-control" type="file" name="selectbox_field_'+id+'_'+v+'_uploaded_image" id="selectbox_field_'+id+'_'+v+'_uploaded_image" placeholder="Image Url" required><a class="btn btn-light" style="font-size:24px;color:brown;" onclick="RemoveValue('+v+')" value="Remove"><i class="fa fa-remove"></i></a>'+
+                                '</div>'+
+                                '<small style="color: brown; id="imageHelp" >Max 500kb and  JPG, JPEG, PNG files</small>'+
+                            '</div>'
+                            );
+                        console.log("Image upload added")
+                        v++;
+                    }
                     function AddYoutubeUrlToSelectboxField(id){
                         $("#body_"+id).append(
                             '<div class="mb-3" id="value_'+v+'" style="display:flex;">'+
-                                '<input type="url" class="form-control" name="selectbox_field_'+id+'_'+v+'_youtube" id="checkbox_field_'+id+'_'+v+'_youtube" placeholder="Youtube Url" required><a class="btn btn-light" style="font-size:24px;color:brown;" onclick="RemoveValue('+v+')" value="Remove"><i class="fa fa-remove"></i></a>'+
+                                '<input type="url" class="form-control" name="selectbox_field_'+id+'_'+v+'_youtube" id="selectbox_field_'+id+'_'+v+'_youtube" placeholder="Youtube Url" required><a class="btn btn-light" style="font-size:24px;color:brown;" onclick="RemoveValue('+v+')" value="Remove"><i class="fa fa-remove"></i></a>'+
                             '</div>'
                             );
                         console.log("Value added")

@@ -3,8 +3,9 @@ from .forms import FirstForm
 from django.contrib import messages
 from .models import Form, FilledForms
 from django.http import HttpResponse
+from .utils.helper import check_image_upload_errors, image_upload
 import shutil
-from utils.helper import check_image_upload_errors, image_upload
+
 # from django.core.files.uploadedfile import InMemoryUploadedFile
 
 def index(request):
@@ -70,7 +71,6 @@ def create_values_for_form(request, pk=None):
                 elif key_parts[-1] == 'values':
                     my_dict[field_name].get('values').append(add_item)
             
-            check_image_upload_errors(request, form_pk)
             if 'error' in check_image_upload_errors(request, form_pk)['message'].keys():
                 messages.warning(request, check_image_upload_errors(request, form_pk)['message']['error'])
                 return redirect(f"/forms/{form_pk.id}")
