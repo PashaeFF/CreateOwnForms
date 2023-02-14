@@ -3,7 +3,7 @@ from .forms import FirstForm
 from django.contrib import messages
 from .models import Form, FilledForms
 from django.http import HttpResponse
-from .utils.helper import check_image_upload_errors, image_upload
+from .utils.image_check_and_upload import check_image_upload_errors, image_upload
 import shutil
 
 from django.core.files.uploadedfile import InMemoryUploadedFile

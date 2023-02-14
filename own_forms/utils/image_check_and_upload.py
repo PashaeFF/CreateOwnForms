@@ -8,9 +8,10 @@ def check_image_upload_errors(request, form_pk, my_dict):
         fileitem = request.FILES[file_key]
         extension = fileitem.name.split('.')[-1]
         image_extensions = ['jpeg','jpg','png']
-        # if fileitem.size > 512000:
-        #     message = 'Image can be max 500kb'
-        #     return {'message':{'error':message}}
+        if fileitem.size > 8388608:
+            size = str(fileitem.size/1000000).split(".")
+            message = f'The picture is too big (Picture size: {size[0]}.{size[1][0]} mb)'
+            return {'message':{'error':message}}
         if extension not in image_extensions:
             message = 'Only "jpg", "jpeg", "png" images are allowed'
             return {'message':{'error':message}}
@@ -43,14 +44,17 @@ def image_upload(request, pk, form_pk, my_dict):
         extension = fileitem.name.split('.')[-1]
         if fileitem.name:
             image = Image.open(fileitem.file)
-            print(f"Original size : {image.size}") # 5464x3640
+            print(f"Original size : {image.size}")
             image_name = f'{uuid.uuid4()}.{extension}'
             if 1000000 > fileitem.size > 400000:
                 image.save(f'{image_path}/{image_name}', optimize = True, quality = 40)
             elif 3000000 > fileitem.size > 1000000:
                 image.save(f'{image_path}/{image_name}', optimize = True, quality = 20)
-            elif 6000000 > fileitem.size > 3000000:
-                image.save(f'{image_path}/{image_name}', optimize = True, quality = 8)
+            elif 5000000 > fileitem.size > 3000000:
+                image.save(f'{image_path}/{image_name}', optimize = True, quality = 7)
+            elif 8388608 > fileitem.size > 5000000:
+                image.save(f'{image_path}/{image_name}', optimize = True, quality = 1)
+
             
             if 'uploaded_image' not in my_dict[files_field_name].keys():
                 my_dict[files_field_name] = {'uploaded_image':[]}
