@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from .utils.helper import check_image_upload_errors, image_upload
 import shutil
 
-# from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 def index(request):
     forms = Form.objects.all()
@@ -70,13 +70,13 @@ def create_values_for_form(request, pk=None):
                     my_dict[field_name].get('url').append(add_item)
                 elif key_parts[-1] == 'values':
                     my_dict[field_name].get('values').append(add_item)
-            
-            if 'error' in check_image_upload_errors(request, form_pk)['message'].keys():
-                messages.warning(request, check_image_upload_errors(request, form_pk)['message']['error'])
+
+            if 'error' in check_image_upload_errors(request, form_pk, my_dict)['message'].keys():
+                messages.warning(request, check_image_upload_errors(request, form_pk, my_dict)['message']['error'])
                 return redirect(f"/forms/{form_pk.id}")
             else:
                 image_upload(request, pk, form_pk, my_dict)
-                
+                 
             for check_key, check_value in my_dict.items():
                 for value_none in check_value.copy():
                     if not check_value[value_none]:

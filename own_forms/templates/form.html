@@ -62,9 +62,7 @@
                                                 <br/>
                                             {% elif k == 'uploaded_image' %}
                                                 <div class="uploaded_image" style="text-align: center;">
-                                                    {% for uploaded_image in i %}
-                                                        <img src="{{ images_path }}{{ uploaded_image }}" style="width:50%;">
-                                                    {% endfor %}
+                                                    {% for uploaded_image in i %}<a href="{{ images_path }}{{ uploaded_image }}"><img src="{{ images_path }}{{ uploaded_image }}" style="width:240px;border-radius: 4px;"></a>{% endfor %}
                                                 </div>
                                                 <br/>
                                             {% elif k == 'url' %}
@@ -87,6 +85,13 @@
                                             {% if k == 'image' %}
                                                 <div class="image" style="text-align: center;">
                                                     {% for image in i %}<img src="{{ image }}" style="width:50%;">{% endfor %}
+                                                </div>
+                                                <br/>
+                                            {% elif k == 'uploaded_image' %}
+                                                <div class="uploaded_image" style="text-align: center;">
+                                                    {% for uploaded_image in i %}
+                                                        <img src="{{ images_path }}{{ uploaded_image }}" style="width:50%;">
+                                                    {% endfor %}
                                                 </div>
                                                 <br/>
                                             {% elif k == 'url' %}
