@@ -32,11 +32,13 @@ def index(request):
 
 def create_values_for_form(request, pk=None):
     form_pk = Form.objects.filter(id=pk).first()
+    files_path = f'/static/'
     if form_pk:
         context = {
             'title':f' {form_pk.form_name}',
             'url':form_pk.url,
             'author':form_pk.fullname,
+            'files_path':files_path
         }
         form_keys = ['checkbox_field_', 'selectbox_field_', 'question_field_']
         if request.method == 'POST':
@@ -95,7 +97,6 @@ def create_values_for_form(request, pk=None):
 def get_form(request, pk=None):
     form_pk = Form.objects.filter(id=pk).first()
     images_path = f'/static/media/{pk}/'
-
     for k, i in form_pk.values.items():
         print(k, i)
     if form_pk:
