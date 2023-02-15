@@ -32,115 +32,76 @@
                 </div>
                 <br/>
                 {% for key, value in data.items %}
-                    {% if value|length == 1 %}
-                        <div class="card" style="background: #fbf7f7;">
-                            <div class="card-header">
-                                {{ value.title }}
-                            </div>
-                            <div class="card-body">
-                                <div class="col-md-8">
-                                    <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder=""></textarea>
-                                </div>
-                            </div>
+                    <div class="card" style="background: #fbf7f7;">
+                        <div class="card-header">
+                            {{ value.title }}
                         </div>
-                        <br/>
-                    {% else %}
-                        <div class="card" style="background: #fbf7f7;">
-                            <div class="card-header">
-                                {{ value.title }}
-                            </div>
-                            <div class="card-body">
-                                <input type="hidden" id="{{ key }}" name="{{ key }}_{{ forloop.counter }}" value="{{ value.0 }}">
-                                {% for k, i in value.items %}
-                                    {% if forloop.counter == 1 %}
-                                    {% else %}
-                                        {% if 'question_field' in key %}
-                                            {% if k == 'description' %}
-                                                <div class="description" style="text-align: left;">
-                                                    {{ i }}
-                                                    <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder=""></textarea>
-                                                </div>
-                                                <br/>
-                                            {% else %}
-                                                <div class="col-md-8">
-                                                    <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder=""></textarea>
-                                                </div>
-                                                <br/>
-                                            {% endif %}
-                                        {% elif 'checkbox_field' in key %}
-                                            {% if k == 'description' %}
-                                                <div class="description" style="text-align: left;">
-                                                    {{ i }}
-                                                </div>
-                                                <br/>
-                                            {% elif k == 'image' %}
-                                                <div class="image" style="text-align: center;">
-                                                    {% for image in i %}<img src="{{ image }}" style="width:50%;">{% endfor %}
-                                                </div>
-                                                <br/>
-                                            {% elif k == 'uploaded_image' %}
-                                                <div class="uploaded_image" style="text-align: center;">
-                                                    {% for uploaded_image in i %}<a href="{{ images_path }}{{ uploaded_image }}"><img src="{{ images_path }}{{ uploaded_image }}" style="width:240px;border-radius: 4px;"></a>{% endfor %}
-                                                </div>
-                                                <br/>
-                                            {% elif k == 'url' %}
-                                                <div class="site_url" style="text-align: left;">
-                                                    {% for site_url in i %}<a href="{{ site_url }}" target="_blank" style="width:50%">{{ site_url }}</a><br/>{% endfor %}
-                                                </div>
-                                            {% elif k == 'youtube' %}
-                                                <div class="youtube" style="text-align: left;">
-                                                    {% for youtube in i %}View Video: <a href="{{ youtube }}"><i class="fa fa-youtube-play" style="font-size:30px;color:red;" aria-hidden="true"></i></a></br/>{% endfor %}
-                                                </div>
-                                            {% elif k == 'values' %}
-                                                <div class="form-check">
-                                                    {% for val in i %}
-                                                        <input type="checkbox" id="{{ key }}_{{ forloop.counter }}" name="{{ key }}_{{ forloop.counter }}" value="{{ val }}">
-                                                        <label for="{{ key }}_{{ forloop.counter }}">{{ val }}</label><br>
-                                                    {% endfor %}
-                                                </div>
-                                            {% endif %}
-                                        {% elif 'selectbox_field' in key %}
-                                            {% if k == 'description' %}
-                                                <div class="description" style="text-align: left;">
-                                                    {{ i }}
-                                                </div>
-                                                <br/>
-                                            {% elif k == 'image' %}
-                                                <div class="image" style="text-align: center;">
-                                                    {% for image in i %}<img src="{{ image }}" style="width:50%;">{% endfor %}
-                                                </div>
-                                                <br/>
-                                            {% elif k == 'uploaded_image' %}
-                                                <div class="uploaded_image" style="text-align: center;">
-                                                    {% for uploaded_image in i %}
-                                                        <img src="{{ images_path }}{{ uploaded_image }}" style="width:50%;">
-                                                    {% endfor %}
-                                                </div>
-                                                <br/>
-                                            {% elif k == 'url' %}
-                                                <div class="site_url" style="text-align: left;">
-                                                    {% for site_url in i %}<a href="{{ site_url }}" target="_blank" style="width:50%">{{ site_url }}</a><br/>{% endfor %}
-                                                </div>
-                                            {% elif k == 'youtube' %}
-                                                <div class="youtube" style="text-align: left;">
-                                                    {% for youtube in i %}View Video: <a href="{{ youtube }}"><i class="fa fa-youtube-play" style="font-size:30px;color:red;" aria-hidden="true"></i></a></br/>{% endfor %}
-                                                </div>
-                                            {% elif k == 'values' %}
-                                                <div class="form-check">
-                                                    {% for val in i %}
-                                                        <input type="radio" id="{{ key }}" name="{{ key }}" value="{{ val }}">
-                                                        <label for="{{ key }}">{{ val }}</label><br>
-                                                {% endfor %}
-                                                </div>
-                                            {% endif %}
+                        <div class="card-body">
+                            <input type="hidden" id="{{ key }}" name="{{ key }}_{{ forloop.counter }}" value="{{ value.0 }}">
+                            {% for k, i in value.items %}
+                                {% if forloop.counter == 1 %}
+                                {% else %}
+                                    <!--  ################ Question Field   ################  -->
+                                    {% if 'question_field' in key %}
+                                        {% if k == 'description' %}
+                                            <div class="description" style="text-align: left;">
+                                                {{ i }}
+                                                <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder=""></textarea>
+                                            </div>
+                                            <br/>
+                                        {% else %}
+                                            <div class="col-md-8">
+                                                <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder=""></textarea>
+                                            </div>
+                                            <br/>
                                         {% endif %}
+                                    <!--  ################ End Question Field   ################  -->
+                                    <!--  ################ Checkbox Field   ################  -->
+                                    {% elif 'checkbox_field' in key %}
+                                        {% if k == 'description' %}
+                                            <div class="description" style="text-align: left;">
+                                                {{ i }}
+                                            </div>
+                                            <br/>
+                                        {% elif k == 'image' %}
+                                            <div class="image" style="text-align: center;">
+                                                {% for image in i %}<img src="{{ image }}" style="width:50%;">{% endfor %}
+                                            </div>
+                                            <br/>
+                                        {% elif k == 'uploaded_image' %}
+                                            <div class="uploaded_image" style="text-align: center;">
+                                                {% for uploaded_image in i %}<a href="{{ images_path }}{{ uploaded_image }}"><img src="{{ images_path }}{{ uploaded_image }}" style="width:240px;border-radius: 4px;"></a>{% endfor %}
+                                            </div>
+                                            <br/>
+                                        {% elif k == 'url' %}
+                                            <div class="site_url" style="text-align: left;">
+                                                {% for site_url in i %}<a href="{{ site_url }}" target="_blank" style="width:50%">{{ site_url }}</a><br/>{% endfor %}
+                                            </div>
+                                        {% elif k == 'youtube' %}
+                                            <div class="youtube" style="text-align: left;">
+                                                {% for youtube in i %}View Video: <a href="{{ youtube }}"><i class="fa fa-youtube-play" style="font-size:30px;color:red;" aria-hidden="true"></i></a></br/>{% endfor %}
+                                            </div>
+                                        {% elif k == 'values' %}
+                                            <div class="form-check">
+                                                {% for val in i %}
+                                                    <input type="checkbox" id="{{ key }}_{{ forloop.counter }}" name="{{ key }}_{{ forloop.counter }}" value="{{ val }}">
+                                                    <label for="{{ key }}_{{ forloop.counter }}">{{ val }}</label><br>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            <div class="col-md-8">
+                                                <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder=""></textarea>
+                                            </div>
+                                            <br/>
+                                        {% endif %}
+                                        <!--  ################ End Checkbox Field   ################  -->
                                     {% endif %}
-                                {% endfor %}
-                            </div>
-                            <hr>
+                                {% endif %}
+                            {% endfor %}
                         </div>
-                        <br/>
-                    {% endif %}
+                        <hr>
+                    </div>
+                    <br/>
                 {% endfor %}
                 <div class="col-8 m-3">
                     <button type="submit" class="btn btn-primary">Submit</button>

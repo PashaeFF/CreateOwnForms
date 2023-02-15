@@ -30,6 +30,7 @@ def check_image_upload_errors(request, form_pk, my_dict):
     return {'message':{'success':'Image ok'}}
 
 
+######## UPLOAD AND COMPRESS IMAGE ########
 def image_upload(request, pk, form_pk, my_dict):
     image_path = f'static/media/{pk}'
     if os.path.exists(f'static/media/{pk}'):
@@ -54,7 +55,6 @@ def image_upload(request, pk, form_pk, my_dict):
                 image.save(f'{image_path}/{image_name}', optimize = True, quality = 7)
             elif 8388608 > fileitem.size > 5000000:
                 image.save(f'{image_path}/{image_name}', optimize = True, quality = 1)
-
             
             if 'uploaded_image' not in my_dict[files_field_name].keys():
                 my_dict[files_field_name] = {'uploaded_image':[]}
