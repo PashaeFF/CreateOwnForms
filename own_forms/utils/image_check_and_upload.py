@@ -37,7 +37,7 @@ def image_upload(request, pk, form_pk, my_dict):
         pass
     else:
         os.mkdir(f'static/media/{pk}/')
-    for file_key, file_item in request.FILES.items():
+    for file_key in request.FILES.keys():
         fileitem = request.FILES[file_key]
         files_key_parts = file_key.split("_")
         files_field_name = "_".join(files_key_parts[:3])
@@ -47,15 +47,17 @@ def image_upload(request, pk, form_pk, my_dict):
             image = Image.open(fileitem.file)
             print(f"Original size : {image.size}")
             image_name = f'{uuid.uuid4()}.{extension}'
-            if 1000000 > fileitem.size > 400000:
+            ####### if the size of the image is larger than 400kb, it degrades its quality
+            if fileitem.size < 400000:
+                image.save(f'{image_path}/{image_name}', optimize = True, quality = 100)
+            elif 1000000 > fileitem.size > 400000:
                 image.save(f'{image_path}/{image_name}', optimize = True, quality = 40)
             elif 3000000 > fileitem.size > 1000000:
                 image.save(f'{image_path}/{image_name}', optimize = True, quality = 20)
             elif 5000000 > fileitem.size > 3000000:
-                image.save(f'{image_path}/{image_name}', optimize = True, quality = 7)
+                image.save(f'{image_path}/{image_name}', optimize = True, quality = 11)
             elif 8388608 > fileitem.size > 5000000:
-                image.save(f'{image_path}/{image_name}', optimize = True, quality = 1)
-            
+                image.save(f'{image_path}/{image_name}', optimize = True, quality = 7)
             if 'uploaded_image' not in my_dict[files_field_name].keys():
                 my_dict[files_field_name] = {'uploaded_image':[]}
             else:

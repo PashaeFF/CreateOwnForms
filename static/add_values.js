@@ -1,6 +1,10 @@
+
+
+
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
     })
+
 $(document).ready(function() {
     var max = 50;
     var x = 1;
@@ -21,6 +25,27 @@ $(document).ready(function() {
                             '<textarea class="form-control rounded-0" id="description" name="question_field_'+n+'_description" rows="3"></textarea>'+
                         '</div>'+
                     '</div>'+
+                    '<div class="toggler-container">'+
+                            '<div class="required">'+
+                                '<label class="toggler-wrapper style-1">'+
+                                    '<span class="toggler-label">Required</span>'+
+                                    '<input type="checkbox" name="question_field_'+n+'_required">'+
+                                    '<div class="toggler-slider">'+
+                                    '<div class="toggler-knob"></div>'+
+                                    '</div>'+
+                                '</label>'+
+                            '</div>'+
+                            '<div class="one_selection">'+
+                                '<label class="toggler-wrapper style-1">'+
+                                    '<span class="toggler-label">Only one selection</span>'+
+                                    '<input type="checkbox" name="question_field_'+n+'_select">'+
+                                    '<div class="toggler-slider">'+
+                                    '<div class="toggler-knob"></div>'+
+                                    '</div>'+
+                                '</label>'+
+                            '</div>'+
+                            '<br/>'+
+                        '</div>'+
                     '<br/>'+
                 '</div>'+
                 '<br/>');
@@ -55,6 +80,27 @@ $(document).ready(function() {
                             '<a class="btn btn-light" type="button" name="add_image_to_checkbox" id="add_image_to_checkbox_'+n+'" value="Image" onclick="AddImageToCheckboxField('+n+');" data-toggle="tooltip" data-placement="top" title="Add Image"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Image</a>'+
                         '</div>'+
                     '</div>'+
+                    '<div class="toggler-container">'+
+                            '<div class="required">'+
+                                '<label class="toggler-wrapper style-1">'+
+                                    '<span class="toggler-label">Required</span>'+
+                                    '<input type="checkbox" name="checkbox_field_'+n+'_required'+n+'">'+
+                                    '<div class="toggler-slider">'+
+                                    '<div class="toggler-knob"></div>'+
+                                    '</div>'+
+                                '</label>'+
+                            '</div>'+
+                            '<div class="one_selection">'+
+                                '<label class="toggler-wrapper style-1">'+
+                                    '<span class="toggler-label">Only one selection</span>'+
+                                    '<input type="checkbox" name="checkbox_field_'+n+'_select'+n+'">'+
+                                    '<div class="toggler-slider">'+
+                                    '<div class="toggler-knob"></div>'+
+                                    '</div>'+
+                                '</label>'+
+                            '</div>'+
+                            '<br/>'+
+                        '</div>'+
                     '<br/>'+
                 '</div>'+
                 '<br/>');
@@ -151,3 +197,4 @@ $(document).ready(function() {
         document.getElementById("card_"+id).remove()
         console.log("Deleted")
     }
+    

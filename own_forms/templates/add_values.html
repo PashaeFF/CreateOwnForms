@@ -21,6 +21,9 @@
                 {% csrf_token %}
                 {{ form.as_p }}
                 <br/>
+                
+                <br/>
+
             </div>
             <div class="col-12 text-right" id="add_to">
                 <a class="btn btn-light" type="button" name="add_question" id="add_question" value="Question" data-toggle="tooltip" data-placement="top" title="Just Quetion"><i class="fa fa-file-text-o"></i></a>
@@ -30,9 +33,8 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
             </form>
-            
             <br/>
-         
+            <div class="check_required" style="display:flex;align-self: right;"></div>"
             <!-- Optional JavaScript -->
             <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         
