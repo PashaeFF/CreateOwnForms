@@ -54,8 +54,26 @@
                                 {% for k, i in value.items %}
                                     {% if forloop.counter == 1 %}
                                     {% else %}
-                                        {% if 'checkbox_field' in key %}
-                                            {% if k == 'image' %}
+                                        {% if 'question_field' in key %}
+                                            {% if k == 'description' %}
+                                                <div class="description" style="text-align: left;">
+                                                    {{ i }}
+                                                    <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder=""></textarea>
+                                                </div>
+                                                <br/>
+                                            {% else %}
+                                                <div class="col-md-8">
+                                                    <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder=""></textarea>
+                                                </div>
+                                                <br/>
+                                            {% endif %}
+                                        {% elif 'checkbox_field' in key %}
+                                            {% if k == 'description' %}
+                                                <div class="description" style="text-align: left;">
+                                                    {{ i }}
+                                                </div>
+                                                <br/>
+                                            {% elif k == 'image' %}
                                                 <div class="image" style="text-align: center;">
                                                     {% for image in i %}<img src="{{ image }}" style="width:50%;">{% endfor %}
                                                 </div>
@@ -82,7 +100,12 @@
                                                 </div>
                                             {% endif %}
                                         {% elif 'selectbox_field' in key %}
-                                            {% if k == 'image' %}
+                                            {% if k == 'description' %}
+                                                <div class="description" style="text-align: left;">
+                                                    {{ i }}
+                                                </div>
+                                                <br/>
+                                            {% elif k == 'image' %}
                                                 <div class="image" style="text-align: center;">
                                                     {% for image in i %}<img src="{{ image }}" style="width:50%;">{% endfor %}
                                                 </div>

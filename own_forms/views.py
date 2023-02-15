@@ -59,11 +59,11 @@ def create_values_for_form(request, pk=None):
                     messages.warning(request, 'Something went wrong')
                     return redirect(f"/forms/{form_pk.id}")
                 if field_name not in my_dict:
-                    my_dict[field_name] = {'title':'','image':[],'uploaded_image':[],'youtube':[],'url':[],'values':[]}
-
+                    my_dict[field_name] = {'title':'','description':'','image':[],'uploaded_image':[],'youtube':[],'url':[],'values':[], 'required':False}
                 if key_parts[-1] == 'title':
-                    title = {'title':add_item}
-                    my_dict[field_name].update(title)
+                    my_dict[field_name].update({'title':add_item})
+                elif key_parts[-1] == 'description':
+                    my_dict[field_name].update({'description':add_item})
                 elif key_parts[-1] == 'image':
                     my_dict[field_name].get('image').append(add_item)
                 elif key_parts[-1] == 'youtube':
@@ -72,6 +72,8 @@ def create_values_for_form(request, pk=None):
                     my_dict[field_name].get('url').append(add_item)
                 elif key_parts[-1] == 'values':
                     my_dict[field_name].get('values').append(add_item)
+                elif key_parts[-1] == 'required':
+                    my_dict[field_name].update({'required':add_item})
 
             if 'error' in check_image_upload_errors(request, form_pk, my_dict)['message'].keys():
                 messages.warning(request, check_image_upload_errors(request, form_pk, my_dict)['message']['error'])
