@@ -49,6 +49,42 @@ def create_values_for_form(request, pk=None):
         messages.warning(request, 'Form not found')
         return redirect('/forms')
 
+def fill_form(request, pk, form_pk):
+    form_keys = ['checkbox_field_', 'selectbox_field_', 'question_field_']
+    form = (request.POST or None)
+    my_dict = {}
+    for key, add_item in form.items():
+        key_parts = key.split("_")
+        if key == 'csrfmiddlewaretoken':
+            continue
+        if key == 'email':
+            if len(add_item) < 4 or "@" not in add_item:
+                messages.warning(request, 'Wrong email')
+                return redirect(f"/forms/{form_pk.id}/view")
+            email = add_item
+            continue
+        elif key == 'name':
+            if len(add_item) < 1:
+                messages.warning(request, 'Name cannot be empty')
+                return redirect(f"/forms/{form_pk.id}/view")
+            fullname = add_item
+            continue
+        field_name = "_".join(key_parts[:3])
+        if len(add_item) < 1:
+            messages.warning(request, 'Inputs cannot be empty')
+            return redirect(f"/forms/{form_pk.id}/view")
+        if field_name[0:-1] not in form_keys:
+            messages.warning(request, 'Something went wrong')
+            return redirect(f"/forms/{form_pk.id}/view")
+        if field_name not in my_dict:
+            my_dict[field_name] = []
+        my_dict[field_name].append(add_item)
+
+    FilledForms.objects.create(email=email, fullname=fullname, filled_form=my_dict, form_id_id=form_pk.id)
+    Form.objects.filter(id=form_pk.id).update(forms_count=form_pk.forms_count+1)
+    messages.success(request, 'Form filled successfull')
+    return redirect('/forms')
+
 
 def get_form(request, pk=None):
     form_pk = Form.objects.filter(id=pk).first()
@@ -61,40 +97,7 @@ def get_form(request, pk=None):
             messages.warning(request, 'The form is empty, fill in your information')
             return redirect(f'/forms/{form_pk.id}')
         if request.method == 'POST':
-            form_keys = ['checkbox_field_', 'selectbox_field_', 'question_field_']
-            form = (request.POST or None)
-            my_dict = {}
-            for key, add_item in form.items():
-                key_parts = key.split("_")
-                if key == 'csrfmiddlewaretoken':
-                    continue
-                if key == 'email':
-                    if len(add_item) < 4 or "@" not in add_item:
-                        messages.warning(request, 'Wrong email')
-                        return redirect(f"/forms/{form_pk.id}/view")
-                    email = add_item
-                    continue
-                elif key == 'name':
-                    if len(add_item) < 1:
-                        messages.warning(request, 'Name cannot be empty')
-                        return redirect(f"/forms/{form_pk.id}/view")
-                    fullname = add_item
-                    continue
-                field_name = "_".join(key_parts[:3])
-                if len(add_item) < 1:
-                    messages.warning(request, 'Inputs cannot be empty')
-                    return redirect(f"/forms/{form_pk.id}/view")
-                if field_name[0:-1] not in form_keys:
-                    messages.warning(request, 'Something went wrong')
-                    return redirect(f"/forms/{form_pk.id}/view")
-                if field_name not in my_dict:
-                    my_dict[field_name] = []
-                my_dict[field_name].append(add_item)
-
-            FilledForms.objects.create(email=email, fullname=fullname, filled_form=my_dict, form_id_id=form_pk.id)
-            Form.objects.filter(id=form_pk.id).update(forms_count=form_pk.forms_count+1)
-            messages.success(request, 'Form filled successfull')
-            return redirect('/forms')
+            fill_form(request, pk, form_pk)
             
         context = {
             'title':form_pk.form_name,

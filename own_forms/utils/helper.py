@@ -28,7 +28,7 @@ def check_values_for_add_form(request, pk, form_pk):
             messages.warning(request, 'Something went wrong')
             return redirect(f"/forms/{form_pk.id}")
         if field_name not in my_dict:
-            my_dict[field_name] = {'title':'','description':'','image':[],'uploaded_image':[],'youtube':[],'url':[],'values':[], 'select':'', 'required':''}
+            my_dict[field_name] = {'title':'','description':'','image':[],'uploaded_image':[],'youtube':[],'url':[],'values':[], 'required':''}
         ######## check dictionary keys
         if key_parts[-1] == 'title':
             my_dict[field_name].update({'title':add_item})
@@ -45,7 +45,7 @@ def check_values_for_add_form(request, pk, form_pk):
             my_dict[field_name].get('values').append(add_item)
         elif key_parts[-1] == 'select':
             if add_item == "on":
-                my_dict[field_name].update({'select':True})
+                my_dict[field_name]['values'].append(True)
         elif key_parts[-1] == 'required':
             if add_item == "on":
                 my_dict[field_name].update({'required':True})

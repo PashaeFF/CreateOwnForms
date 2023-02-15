@@ -82,18 +82,24 @@
                                                 {% for youtube in i %}View Video: <a href="{{ youtube }}"><i class="fa fa-youtube-play" style="font-size:30px;color:red;" aria-hidden="true"></i></a></br/>{% endfor %}
                                             </div>
                                         {% elif k == 'values' %}
-                                            <div class="form-check">
-                                                {% for val in i %}
-                                                    <input type="checkbox" id="{{ key }}_{{ forloop.counter }}" name="{{ key }}_{{ forloop.counter }}" value="{{ val }}">
-                                                    <label for="{{ key }}_{{ forloop.counter }}">{{ val }}</label><br>
-                                                {% endfor %}
-                                            </div>
-                                        {% else %}
-                                            <div class="col-md-8">
-                                                <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder=""></textarea>
-                                            </div>
-                                            <br/>
+                                            {% if True in i %}
+                                                <div class="form-check">
+                                                    {% for val in i %}
+                                                        <input type="radio" id="{{ key }}" name="{{ key }}" value="{{ val }}">
+                                                        <label for="{{ key }}">{{ val }}</label><br>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                <div class="form-check">
+                                                    {% for val in i %}
+                                                        <input type="checkbox" id="{{ key }}_{{ forloop.counter }}" name="{{ key }}_{{ forloop.counter }}" value="{{ val }}">
+                                                        <label for="{{ key }}_{{ forloop.counter }}">{{ val }}</label><br>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
                                         {% endif %}
+                                        <br/>
+                                        
                                         <!--  ################ End Checkbox Field   ################  -->
                                     {% endif %}
                                 {% endif %}

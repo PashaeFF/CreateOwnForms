@@ -29,16 +29,7 @@ $(document).ready(function() {
                             '<div class="required">'+
                                 '<label class="toggler-wrapper style-1">'+
                                     '<span class="toggler-label">Required</span>'+
-                                    '<input type="checkbox" name="question_field_'+n+'_required">'+
-                                    '<div class="toggler-slider">'+
-                                    '<div class="toggler-knob"></div>'+
-                                    '</div>'+
-                                '</label>'+
-                            '</div>'+
-                            '<div class="one_selection">'+
-                                '<label class="toggler-wrapper style-1">'+
-                                    '<span class="toggler-label">Only one selection</span>'+
-                                    '<input type="checkbox" name="question_field_'+n+'_select">'+
+                                    '<input type="checkbox" name="question_field_'+n+'_required" checked>'+
                                     '<div class="toggler-slider">'+
                                     '<div class="toggler-knob"></div>'+
                                     '</div>'+
@@ -84,7 +75,7 @@ $(document).ready(function() {
                             '<div class="required">'+
                                 '<label class="toggler-wrapper style-1">'+
                                     '<span class="toggler-label">Required</span>'+
-                                    '<input type="checkbox" name="checkbox_field_'+n+'_required'+n+'">'+
+                                    '<input type="checkbox" name="checkbox_field_'+n+'_required" checked>'+
                                     '<div class="toggler-slider">'+
                                     '<div class="toggler-knob"></div>'+
                                     '</div>'+
@@ -93,7 +84,7 @@ $(document).ready(function() {
                             '<div class="one_selection">'+
                                 '<label class="toggler-wrapper style-1">'+
                                     '<span class="toggler-label">Only one selection</span>'+
-                                    '<input type="checkbox" name="checkbox_field_'+n+'_select'+n+'">'+
+                                    '<input type="checkbox" name="checkbox_field_'+n+'_select">'+
                                     '<div class="toggler-slider">'+
                                     '<div class="toggler-knob"></div>'+
                                     '</div>'+

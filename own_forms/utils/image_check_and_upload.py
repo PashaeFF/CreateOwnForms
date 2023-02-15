@@ -2,6 +2,7 @@ import os, uuid
 from collections import Counter
 from PIL import Image
 
+######### CHECK IMAGE ERRORS #########
 def check_image_upload_errors(request, form_pk, my_dict):
     image_keys_list = []
     for file_key, file_item in request.FILES.items():
