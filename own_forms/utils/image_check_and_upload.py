@@ -59,8 +59,8 @@ def image_upload(request, pk, form_pk, my_dict):
                 image.save(f'{image_path}/{image_name}', optimize = True, quality = 11)
             elif 8388608 > fileitem.size > 5000000:
                 image.save(f'{image_path}/{image_name}', optimize = True, quality = 7)
-            if 'uploaded_image' not in my_dict[files_field_name].keys():
-                my_dict[files_field_name] = {'uploaded_image':[]}
-            else:
-                if last_field_name == 'uploaded_image':
-                    my_dict[files_field_name].get('uploaded_image').append(image_name)
+            # if 'uploaded_image' not in my_dict[files_field_name].keys():
+            #     my_dict[files_field_name] = {'uploaded_image':[]}
+            # else:
+            if last_field_name == 'uploaded_image':
+                my_dict[files_field_name].get('uploaded_image').append(image_name)

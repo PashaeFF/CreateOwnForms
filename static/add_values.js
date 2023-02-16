@@ -1,6 +1,3 @@
-
-
-
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
     })
@@ -129,7 +126,7 @@ $(document).ready(function() {
         document.getElementById("add_image_to_question_"+id).remove()
         $("#body_"+id).append(
             '<div class="mb-3" id="value_'+v+'" style="display:flex;">'+
-                '<input class="form-control" type="file" name="question_field_'+id+'_'+v+'_image" id="question_field_'+id+'_'+v+'_image" required><a class="btn btn-light" style="font-size:24px;color:brown;" onclick="RemoveValue('+v+');ImageAddingButtonToQuestion('+id+');" value="Remove"><i class="fa fa-remove"></i></a>'+
+                '<input class="form-control" type="file" name="question_field_'+id+'_'+v+'_uploaded_image" id="question_field_'+id+'_'+v+'_uploaded_image" required><a class="btn btn-light" style="font-size:24px;color:brown;" onclick="RemoveValue('+v+');ImageAddingButtonToQuestion('+id+');" value="Remove"><i class="fa fa-remove"></i></a>'+
             '</div>'
             );
         console.log("Image added")

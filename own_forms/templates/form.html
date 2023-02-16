@@ -4,7 +4,7 @@
 <h4>Domain: <i><a href="{{ url }}">{{ url }}</a></i></h4>
 <h4>Form Author: <i style="color: rgb(9, 5, 100);">{{ author }}</i></h4>
 <div class="row">
-    <div class="col-md-8 col-centered">
+    <div class="col-md-12 col-centered">
         {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -18,24 +18,24 @@
             
             <form method="POST">
                 {% csrf_token %}
-                <div class="card" style="background: #fbf7f7;">
+                <!-- <div class="card" style="background: #fbf7f7;">
                     <div class="card-body">
                         <div class="col-md-5">
-                            <label for="email">Email</label><br>
+                            <label for="email"><i style="color: brown;font-size: 24px;">*</i>Email</label><br>
                             <input class="form-control" type="email" name="email" required>
                         </div>
                         <div class="col-md-5">
-                            <label for="fullname">Full name</label><br>
+                            <label for="fullname"><i style="color: brown;font-size: 24px;">*</i>Full name</label><br>
                             <input class="form-control" type="text" name="name" required>
                         </div>
                     </div>
                 </div>
-                <br/>
+                <br/> -->
    
                 {% for key, value in data.items %}
                     <div class="card" style="background: #fbf7f7;">
-                        <div class="card-header">
-                            {{ value.title }}
+                        <div class="card-header" style="background: #fbf7f7;">
+                            {{ value.counter }}. {% if value.required %}<i style="color: brown;font-size: 24px;">*</i>{% endif %} {{ value.title }}
                         </div>
                         <div class="card-body">
                             {% for k, i in value.items %}
@@ -43,40 +43,56 @@
                                 {% else %}
                                     <!--  ################ Question Field   ################  -->
                                     {% if 'question_field' in key %}
-                                        {% if k == 'description' %}
-                                            <div class="description" style="text-align: left;">
-                                                {{ i }}
-                                                <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder=""></textarea>
-                                            </div>
-                                            <br/>
-                                        {% endif %}
-                                    <!--  ################ End Question Field   ################  -->
-                                    <!--  ################ Checkbox Field   ################  -->
-                                    {% elif 'checkbox_field' in key %}
-                                        {% if k == 'description' %}
-                                            <div class="description" style="text-align: left;">
-                                                {{ i }}
-                                            </div>
-                                            <br/>
-                                        {% elif k == 'image' %}
-                                            <div class="image" style="text-align: center;">
-                                                {% for image in i %}<img src="{{ image }}" style="width:50%;">{% endfor %}
-                                            </div>
-                                            <br/>
-                                        {% elif k == 'uploaded_image' %}
+                                        <!-- ##### I question item  ##### -->
+                                        {% if k == 'uploaded_image' %}
                                             <div class="uploaded_image" style="text-align: center;">
                                                 {% for uploaded_image in i %}<a href="{{ images_path }}{{ uploaded_image }}"><img src="{{ images_path }}{{ uploaded_image }}" style="width:240px;border-radius: 4px;"></a>{% endfor %}
                                             </div>
                                             <br/>
+                                        <!-- ##### II question item  ##### -->
+                                        {% elif k == 'description' %}
+                                            <div class="description" style="text-align: left;">
+                                                {{ i }}
+                                            </div>
+                                            <br/>
+                                        <!-- ##### III question item  ##### -->
+                                        {% elif k == 'input' %}
+                                            <div class="description" style="text-align: left;">
+                                                <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder="" {% if value.required %}required{% endif %}></textarea>
+                                            </div>
+                                        {% endif %}
+                                    <!--  ################ End Question Field   ################  -->
+                                    <!--  ################ Checkbox Field   ################  -->
+                                    {% elif 'checkbox_field' in key %}
+                                        <!-- ##### I checkbox item  ##### -->
+                                        {% if k == 'description' %}
+                                            <div class="description" style="text-align: left;">
+                                                {{ i }}
+                                            </div>
+                                            <br/>
+                                        <!-- ##### II checkbox item  ##### -->
+                                        {% elif k == 'image' %}
+                                            <div class="image" style="text-align: center;">
+                                                {% for image in i %}<img src="{{ image }}" style="width:50%;">{% endfor %}
+                                            </div>
+                                        <!-- ##### III checkbox item  ##### -->
+                                        {% elif k == 'uploaded_image' %}
+                                            <div class="uploaded_image" style="text-align: center;">
+                                                {% for uploaded_image in i %}<a href="{{ images_path }}{{ uploaded_image }}"><img src="{{ images_path }}{{ uploaded_image }}" style="width:240px;border-radius: 4px;"></a>{% endfor %}
+                                            </div>
+                                        <!-- ##### IV checkbox item  ##### -->
                                         {% elif k == 'url' %}
                                             <div class="site_url" style="text-align: left;">
                                                 {% for site_url in i %}<a href="{{ site_url }}" target="_blank" style="width:50%">{{ site_url }}</a><br/>{% endfor %}
                                             </div>
+                                        <!-- ##### V checkbox item  ##### -->
                                         {% elif k == 'youtube' %}
                                             <div class="youtube" style="text-align: left;">
                                                 {% for youtube in i %}View Video: <a href="{{ youtube }}"><i class="fa fa-youtube-play" style="font-size:30px;color:red;" aria-hidden="true"></i></a></br/>{% endfor %}
                                             </div>
+                                        <!-- ##### VI checkbox item  ##### -->
                                         {% elif k == 'values' %}
+                                            <!-- ##### Radio item  ##### -->
                                             {% if True in i %}
                                                 <div class="form-check">
                                                     {% for val in i %}
@@ -84,6 +100,7 @@
                                                         <label for="{{ key }}">{{ val }}</label><br>
                                                     {% endfor %}
                                                 </div>
+                                            <!-- ##### Checkbox item  ##### -->
                                             {% else %}
                                                 <div class="form-check">
                                                     {% for val in i %}
@@ -92,9 +109,13 @@
                                                     {% endfor %}
                                                 </div>
                                             {% endif %}
+                                        <!-- ##### VII checkbox item  ##### -->
+                                        {% elif k == 'allow' %}
+                                            <label for="{{ key }}">Your own answer</label>
+                                            <div class="description" style="text-align: left;">
+                                                <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder=""></textarea>
+                                            </div>
                                         {% endif %}
-                                        <br/>
-                                        
                                         <!--  ################ End Checkbox Field   ################  -->
                                     {% endif %}
                                 {% endif %}
@@ -102,39 +123,61 @@
                         </div>
                         <hr>
                     </div>
-                    <br/>
                 {% endfor %}
-                <div class="col-8 m-3">
+                <!-- <div class="col-8 m-3">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
+                </div> -->
             </form>
+            <div class="buttons" style="text-align:center;">
+                <button id="prev-btn"><b>Prev</b></button>
+                <button id="next-btn"><b>Next</b></button>
+            </div>
         </div>
             <!-- Script -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            <script src="{{ files_path }}optimizer.js"></script>
             <script>
-                function RemoveAtribute(id) {
-                    const checkboxes = document.querySelectorAll(`input[type='checkbox'][id='${id}']`);
-                    checkboxes.forEach(checkbox => {
-                        checkbox.addEventListener("click", () => {
-                        if (checkbox.checked) {
-                            checkboxes.forEach(cb => {
-                            if (cb !== checkbox) {
-                                cb.removeAttribute("required");
-                            }
-                            });
-                        } else {
-                            checkboxes.forEach(cb => {
-                            if (cb !== checkbox) {
-                                cb.setAttribute("required", "");
-                            }
-                            });
-                        }
-                        });
-                    });
+                function paginateCards(page) {
+                const cards = document.querySelectorAll('.card');
+                const cardsPerPage = 5;
+                const startIndex = (page - 1) * cardsPerPage;
+                const endIndex = startIndex + cardsPerPage;
+                
+                for (let i = 0; i < cards.length; i++) {
+                    if (i >= startIndex && i < endIndex) {
+                    cards[i].style.display = 'block';
+                    } else {
+                    cards[i].style.display = 'none';
+                    }
                 }
+                }
+
+                let currentPage = 1;
+                paginateCards(currentPage);
+
+                document.getElementById('prev-btn').addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    paginateCards(currentPage);
+                }
+                });
+
+                document.getElementById('next-btn').addEventListener('click', function() {
+                const cards = document.querySelectorAll('.card');
+                const cardsPerPage = 5;
+                const totalCards = cards.length;
+                const totalPages = Math.ceil(totalCards / cardsPerPage);
+                
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    paginateCards(currentPage);
+                }
+                });
+
+
             </script>
     </div>
 </div>

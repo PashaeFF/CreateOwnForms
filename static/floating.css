@@ -1,12 +1,63 @@
-.card {
+
+
+  .card {
+    /* kart boyutları, boşluklar vb. */
     background-color: #f0f0f0;
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    padding: 20px;
+    padding: 0px;
+    margin: 20px;
+    left: 8%;
+    align-content: center;
+    margin-bottom: 48px;
+    width: 80%;
+    height: 100%;
+    position: relative;
   }
 
+  
+  #prev-btn, #next-btn {
+    position: flex;
+    width: 96px;
+    bottom: 10px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #prev-btn {
+    margin-bottom: 24px;
+    background-color: #c4c4c4;
+    border-radius: 8px;
+  }
+  
+  #next-btn {
+    color: white;
+    margin-bottom: 24px;
+    background-color: #01cb30;
+    border-radius: 8px;
+  }
+  
 
 
+  /* #prev-btn, #next-btn {
+    position: fixed;
+    bottom: 10px;
+    padding: 10px;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #prev-btn {
+    left: 40%;
+    margin-bottom: 24px;
+  }
+  
+  #next-btn {
+    right: 45%; 
+    margin-bottom: 24px;
+  } */
 
 
   .checkbox-wrapper-7 .tgl {
@@ -408,3 +459,31 @@
     transform: none;
   }
 
+
+/* PAGINATE */
+  .pagination-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    justify-content: center;
+  }
+  .pagination-number,
+  .pagination-button{
+    font-size: 1.1rem;
+    background-color: transparent;
+    border: none;
+    margin: 0.25rem 0.25rem;
+    cursor: pointer;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: .2rem;
+  }
+  .pagination-number:hover,
+  .pagination-button:not(.disabled):hover {
+    background: #fff;
+  }
+  .pagination-number.active {
+    color: #fff;
+    background: #0085b6;
+  }

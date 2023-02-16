@@ -29,7 +29,6 @@ def index(request):
                 new_form.save()
                 form_url = Form.objects.filter(url=form['url'].value()).first()
                 return redirect(f'/forms/{form_url.id}')
-     
     return render(request, 'index.html', context)
 
 
@@ -44,6 +43,7 @@ def create_values_for_form(request, pk=None):
             'files_path':files_path
         }
         if request.method == 'POST':
+            # print(check_values_for_add_form(request, pk, form_pk))
             Form.objects.filter(id=pk).update(values=check_values_for_add_form(request, pk, form_pk))
             messages.success(request, 'Form created')
             return redirect("/forms")
@@ -51,6 +51,7 @@ def create_values_for_form(request, pk=None):
     else:
         messages.warning(request, 'Form not found')
         return redirect('/forms')
+
 
 def fill_form(request, pk, form_pk):
     form_keys = ['checkbox_field_', 'selectbox_field_', 'question_field_']
@@ -93,6 +94,8 @@ def fill_form(request, pk, form_pk):
 def get_form(request, pk=None):
     form_pk = Form.objects.filter(id=pk).first()
     images_path = f'/static/media/{pk}/'
+    for k, i in form_pk.values.items():
+        print(i)
     if form_pk:
         values = form_pk.values
         if len(values) < 1:
