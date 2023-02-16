@@ -31,13 +31,13 @@
                     </div>
                 </div>
                 <br/>
+   
                 {% for key, value in data.items %}
                     <div class="card" style="background: #fbf7f7;">
                         <div class="card-header">
                             {{ value.title }}
                         </div>
                         <div class="card-body">
-                            <input type="hidden" id="{{ key }}" name="{{ key }}_{{ forloop.counter }}" value="{{ value.0 }}">
                             {% for k, i in value.items %}
                                 {% if forloop.counter == 1 %}
                                 {% else %}
@@ -46,11 +46,6 @@
                                         {% if k == 'description' %}
                                             <div class="description" style="text-align: left;">
                                                 {{ i }}
-                                                <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder=""></textarea>
-                                            </div>
-                                            <br/>
-                                        {% else %}
-                                            <div class="col-md-8">
                                                 <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder=""></textarea>
                                             </div>
                                             <br/>
@@ -85,15 +80,15 @@
                                             {% if True in i %}
                                                 <div class="form-check">
                                                     {% for val in i %}
-                                                        <input type="radio" id="{{ key }}" name="{{ key }}" value="{{ val }}">
+                                                        <input type="radio" id="{{ key }}" name="{{ key }}" value="{{ val }}" {% if value.required %}required{% endif %}>
                                                         <label for="{{ key }}">{{ val }}</label><br>
                                                     {% endfor %}
                                                 </div>
                                             {% else %}
                                                 <div class="form-check">
                                                     {% for val in i %}
-                                                        <input type="checkbox" id="{{ key }}_{{ forloop.counter }}" name="{{ key }}_{{ forloop.counter }}" value="{{ val }}">
-                                                        <label for="{{ key }}_{{ forloop.counter }}">{{ val }}</label><br>
+                                                        <input type="checkbox" id="{{ key }}" name="{{ key }}_{{ forloop.counter }}" value="{{ val }}" onclick="RemoveAtribute('{{ key }}')" {% if value.required %}required{% endif %}>
+                                                        <label for="{{ key }}">{{ val }}</label><br>
                                                     {% endfor %}
                                                 </div>
                                             {% endif %}
@@ -119,6 +114,28 @@
             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            <script>
+                function RemoveAtribute(id) {
+                    const checkboxes = document.querySelectorAll(`input[type='checkbox'][id='${id}']`);
+                    checkboxes.forEach(checkbox => {
+                        checkbox.addEventListener("click", () => {
+                        if (checkbox.checked) {
+                            checkboxes.forEach(cb => {
+                            if (cb !== checkbox) {
+                                cb.removeAttribute("required");
+                            }
+                            });
+                        } else {
+                            checkboxes.forEach(cb => {
+                            if (cb !== checkbox) {
+                                cb.setAttribute("required", "");
+                            }
+                            });
+                        }
+                        });
+                    });
+                }
+            </script>
     </div>
 </div>
 {% endblock content %}

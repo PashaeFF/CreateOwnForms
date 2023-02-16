@@ -28,7 +28,7 @@ def check_values_for_add_form(request, pk, form_pk):
             messages.warning(request, 'Something went wrong')
             return redirect(f"/forms/{form_pk.id}")
         if field_name not in my_dict:
-            my_dict[field_name] = {'title':'','description':'','image':[],'uploaded_image':[],'youtube':[],'url':[],'values':[], 'required':''}
+            my_dict[field_name] = {'title':'','description':'','image':[],'uploaded_image':[],'youtube':[],'url':[],'values':[], 'required':'', 'allow':''}
         ######## check dictionary keys
         if key_parts[-1] == 'title':
             my_dict[field_name].update({'title':add_item})
@@ -46,6 +46,9 @@ def check_values_for_add_form(request, pk, form_pk):
         elif key_parts[-1] == 'select':
             if add_item == "on":
                 my_dict[field_name]['values'].append(True)
+        elif key_parts[-1] == 'allow':
+            if add_item == "on":
+                my_dict[field_name].update({'allow':True})
         elif key_parts[-1] == 'required':
             if add_item == "on":
                 my_dict[field_name].update({'required':True})
@@ -60,5 +63,4 @@ def check_values_for_add_form(request, pk, form_pk):
         for value_none in check_value.copy():
             if not check_value[value_none]:
                 check_value.pop(value_none)
-    print("my_dict >>>>>", my_dict)
     return my_dict

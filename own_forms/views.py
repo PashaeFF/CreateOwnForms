@@ -5,8 +5,10 @@ from .models import Form, FilledForms
 from django.http import HttpResponse
 from .utils.helper import check_values_for_add_form
 import shutil
+import sys, errno 
 
 # from django.core.files.uploadedfile import InMemoryUploadedFile
+ 
 
 def index(request):
     forms = Form.objects.all()
@@ -27,6 +29,7 @@ def index(request):
                 new_form.save()
                 form_url = Form.objects.filter(url=form['url'].value()).first()
                 return redirect(f'/forms/{form_url.id}')
+     
     return render(request, 'index.html', context)
 
 
@@ -54,6 +57,7 @@ def fill_form(request, pk, form_pk):
     form = (request.POST or None)
     my_dict = {}
     for key, add_item in form.items():
+        # print(f"key: {key} | value: {add_item}")
         key_parts = key.split("_")
         if key == 'csrfmiddlewaretoken':
             continue
@@ -70,9 +74,9 @@ def fill_form(request, pk, form_pk):
             fullname = add_item
             continue
         field_name = "_".join(key_parts[:3])
-        if len(add_item) < 1:
-            messages.warning(request, 'Inputs cannot be empty')
-            return redirect(f"/forms/{form_pk.id}/view")
+        # if len(add_item) < 1:
+        #     messages.warning(request, 'Inputs cannot be empty')
+        #     return redirect(f"/forms/{form_pk.id}/view")
         if field_name[0:-1] not in form_keys:
             messages.warning(request, 'Something went wrong')
             return redirect(f"/forms/{form_pk.id}/view")
@@ -89,8 +93,6 @@ def fill_form(request, pk, form_pk):
 def get_form(request, pk=None):
     form_pk = Form.objects.filter(id=pk).first()
     images_path = f'/static/media/{pk}/'
-    for k, i in form_pk.values.items():
-        print(k, i)
     if form_pk:
         values = form_pk.values
         if len(values) < 1:
@@ -98,7 +100,7 @@ def get_form(request, pk=None):
             return redirect(f'/forms/{form_pk.id}')
         if request.method == 'POST':
             fill_form(request, pk, form_pk)
-            
+
         context = {
             'title':form_pk.form_name,
             'id':form_pk.id,

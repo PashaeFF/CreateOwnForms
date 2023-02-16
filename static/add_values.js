@@ -24,19 +24,23 @@ $(document).ready(function() {
                             '<label for="description">Description</label>'+
                             '<textarea class="form-control rounded-0" id="description" name="question_field_'+n+'_description" rows="3"></textarea>'+
                         '</div>'+
+                        '<a class="btn btn-light" type="button" name="add_image_to_question" id="add_image_to_question_'+n+'" value="Image" onclick="AddImageToQuestionField('+n+');" data-toggle="tooltip" data-placement="top" title="Add Image"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Image</a>'+
                     '</div>'+
-                    '<div class="toggler-container">'+
-                            '<div class="required">'+
-                                '<label class="toggler-wrapper style-1">'+
-                                    '<span class="toggler-label">Required</span>'+
-                                    '<input type="checkbox" name="question_field_'+n+'_required" checked>'+
-                                    '<div class="toggler-slider">'+
-                                    '<div class="toggler-knob"></div>'+
-                                    '</div>'+
+                    '<div class="one_line" style="display:flex;">'+
+                        '<div class="required" style="right: -80%">'+
+                            '<div class="checkbox-wrapper-15">'+
+                                '<input class="inp-cbx" id="question_field_'+n+'_required" type="checkbox" name="question_field_'+n+'_required" style="display: none;"/>'+
+                                '<label class="cbx" for="question_field_'+n+'_required">'+
+                                    '<span>'+
+                                        '<svg width="12px" height="9px" viewbox="0 0 12 9">'+
+                                            '<polyline points="1 5 4 8 11 1"></polyline>'+
+                                        '</svg>'+
+                                    '</span>'+
+                                    '<span>Required</span>'+
                                 '</label>'+
                             '</div>'+
-                            '<br/>'+
                         '</div>'+
+                    '</div>'+
                     '<br/>'+
                 '</div>'+
                 '<br/>');
@@ -63,6 +67,17 @@ $(document).ready(function() {
                             '<label for="value" class="form-label">*Value</label>'+
                             '<input type="text" class="form-control" name="checkbox_field_'+n+'_'+v+'_values" id="checkbox_field_'+n+'_'+v+'_values" placeholder="Value" required>'+
                         '</div>'+
+                        '<div class="checkbox-wrapper-15">'+
+                            '<input class="inp-cbx" id="checkbox_field_'+n+'_allow" type="checkbox" name="checkbox_field_'+n+'_allow" style="display: none;"/>'+
+                            '<label class="cbx" for="checkbox_field_'+n+'_allow">'+
+                                '<span>'+
+                                    '<svg width="12px" height="9px" viewbox="0 0 12 9">'+
+                                        '<polyline points="1 5 4 8 11 1"></polyline>'+
+                                    '</svg>'+
+                                '</span>'+
+                                '<span>Allow to add another answer</span>'+
+                            '</label>'+
+                        '</div>'+
                         '<div class="add_'+n+'" id="add_'+n+'">'+
                             '<a class="btn btn-light" type="button" name="add_value_to_checkbox" id="add_value_to_checkbox" value="Value" onclick="AddValueToCheckboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Value"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Value</a>'+
                             '<a class="btn btn-light" type="button" name="add_url_to_checkbox" id="add_url_to_checkbox" value="Add Url" onclick="AddUrlToCheckboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Url"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Url</a>'+
@@ -71,27 +86,34 @@ $(document).ready(function() {
                             '<a class="btn btn-light" type="button" name="add_image_to_checkbox" id="add_image_to_checkbox_'+n+'" value="Image" onclick="AddImageToCheckboxField('+n+');" data-toggle="tooltip" data-placement="top" title="Add Image"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Image</a>'+
                         '</div>'+
                     '</div>'+
-                    '<div class="toggler-container">'+
-                            '<div class="required">'+
-                                '<label class="toggler-wrapper style-1">'+
-                                    '<span class="toggler-label">Required</span>'+
-                                    '<input type="checkbox" name="checkbox_field_'+n+'_required" checked>'+
-                                    '<div class="toggler-slider">'+
-                                    '<div class="toggler-knob"></div>'+
-                                    '</div>'+
+                    '<div class="one_line" style="display:flex;">'+
+                        '<div class="required" style="right: -80%">'+
+                            '<div class="checkbox-wrapper-15">'+
+                                '<input class="inp-cbx" id="checkbox_field_'+n+'_required" type="checkbox" name="checkbox_field_'+n+'_required" style="display: none;"/>'+
+                                '<label class="cbx" for="checkbox_field_'+n+'_required">'+
+                                    '<span>'+
+                                        '<svg width="12px" height="9px" viewbox="0 0 12 9">'+
+                                            '<polyline points="1 5 4 8 11 1"></polyline>'+
+                                        '</svg>'+
+                                    '</span>'+
+                                    '<span>Required</span>'+
                                 '</label>'+
                             '</div>'+
-                            '<div class="one_selection">'+
-                                '<label class="toggler-wrapper style-1">'+
-                                    '<span class="toggler-label">Only one selection</span>'+
-                                    '<input type="checkbox" name="checkbox_field_'+n+'_select">'+
-                                    '<div class="toggler-slider">'+
-                                    '<div class="toggler-knob"></div>'+
-                                    '</div>'+
-                                '</label>'+
-                            '</div>'+
-                            '<br/>'+
                         '</div>'+
+                        '<div class="required" style="right: -40%">'+
+                            '<div class="checkbox-wrapper-15">'+
+                                '<input class="inp-cbx" id="checkbox_field_'+n+'_select" type="checkbox" name="checkbox_field_'+n+'_select" style="display: none;"/>'+
+                                '<label class="cbx" for="checkbox_field_'+n+'_select">'+
+                                    '<span>'+
+                                        '<svg width="12px" height="9px" viewbox="0 0 12 9">'+
+                                            '<polyline points="1 5 4 8 11 1"></polyline>'+
+                                        '</svg>'+
+                                    '</span>'+
+                                    '<span>One Selection</span>'+
+                                '</label>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'+
                     '<br/>'+
                 '</div>'+
                 '<br/>');
@@ -103,14 +125,14 @@ $(document).ready(function() {
 
     var v = 1
     // ########### For Question ############
-    function AddDescriptionToQuestionField(id){
-        document.getElementById("add_description_to_question_"+id).remove()
+    function AddImageToQuestionField(id){
+        document.getElementById("add_image_to_question_"+id).remove()
         $("#body_"+id).append(
             '<div class="mb-3" id="value_'+v+'" style="display:flex;">'+
-                '<input type="text" class="form-control" name="question_field_'+id+'_'+v+'_description" id="question_field_'+id+'_'+v+'_description" placeholder="Description" required><a class="btn btn-light" style="font-size:24px;color:brown;" onclick="RemoveValue('+v+');DescriptionAddingButtonToQuestion('+id+');" value="Remove"><i class="fa fa-remove"></i></a>'+
+                '<input class="form-control" type="file" name="question_field_'+id+'_'+v+'_image" id="question_field_'+id+'_'+v+'_image" required><a class="btn btn-light" style="font-size:24px;color:brown;" onclick="RemoveValue('+v+');ImageAddingButtonToQuestion('+id+');" value="Remove"><i class="fa fa-remove"></i></a>'+
             '</div>'
             );
-        console.log("Description added")
+        console.log("Image added")
         v++;
     }
     // ########### For CheckBox ##################
@@ -165,7 +187,6 @@ $(document).ready(function() {
         v++;
     }
 
-
     // ############ Remove elements #############
     function RemoveValue(id){
         document.getElementById("value_"+id).remove()
@@ -182,6 +203,12 @@ $(document).ready(function() {
             );
         console.log("Button added")
         }
+    function ImageAddingButtonToQuestion(id){
+        $("#body_"+id).append(
+            '<a class="btn btn-light" type="button" name="add_image_to_question" id="add_image_to_question_'+id+'" value="Image" onclick="AddImageToQuestionField('+id+');" data-toggle="tooltip" data-placement="top" title="Add Image"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Image</a>'
+        );
+        console.log("Button added")
+    }
     // ########################################
 
     function RemoveCard(id) {
