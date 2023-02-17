@@ -9,7 +9,7 @@ $(document).ready(function() {
     $("#add_question").click(function(){
         if(x <= max){
             $("#cards").append(
-                '<div class="card" id="card_'+n+'" style="background: #fbf7f7;">'+
+                '<div class="card_1" id="card_'+n+'" style="background: #fbf7f7;">'+
                     '<div class="card-body" id="body_'+n+'">'+
                         '<a class="btn btn-light" style="font-size:24px;float:right;" id="remove" name="remove" onclick="RemoveCard('+n+')" value="Remove" data-toggle="tooltip" data-placement="top" title="Remove"><i class="fa fa-remove"></i></a>'+
                         '<h5 class="card-title">Question</h5>'+
@@ -24,10 +24,10 @@ $(document).ready(function() {
                         '<a class="btn btn-light" type="button" name="add_image_to_question" id="add_image_to_question_'+n+'" value="Image" onclick="AddImageToQuestionField('+n+');" data-toggle="tooltip" data-placement="top" title="Add Image"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Image</a>'+
                     '</div>'+
                     '<div class="one_line" style="display:flex;">'+
-                        '<div class="required" style="right: -80%">'+
+                        '<div class="required" style="left:3%;margin-right: 2%;">'+
                             '<div class="checkbox-wrapper-15">'+
-                                '<input class="inp-cbx" id="question_field_'+n+'_required" type="checkbox" name="question_field_'+n+'_required" style="display: none;"/>'+
-                                '<label class="cbx" for="question_field_'+n+'_required">'+
+                                '<input class="inp-cbx" id="checkbox_field_'+n+'_required" type="checkbox" name="checkbox_field_'+n+'_required" style="display: none;"/>'+
+                                '<label class="cbx" for="checkbox_field_'+n+'_required">'+
                                     '<span>'+
                                         '<svg width="12px" height="9px" viewbox="0 0 12 9">'+
                                             '<polyline points="1 5 4 8 11 1"></polyline>'+
@@ -48,7 +48,7 @@ $(document).ready(function() {
     $("#add_checkbox").click(function(){
         if(x <= max){
             $("#cards").append(
-                '<div class="card" id="card_'+n+'" style="background: #fbf7f7;">'+
+                '<div class="card_1" id="card_'+n+'" style="background: #fbf7f7;">'+
                     '<div class="card-body" id="body_'+n+'">'+
                         '<a class="btn btn-light" style="font-size:24px;float:right;" id="remove" name="remove" onclick="RemoveCard('+n+')" value="Remove" data-toggle="tooltip" data-placement="top" title="Remove"><i class="fa fa-remove"></i></a>'+
                         '<h5 class="card-title">Checbox</h5>'+
@@ -84,7 +84,7 @@ $(document).ready(function() {
                         '</div>'+
                     '</div>'+
                     '<div class="one_line" style="display:flex;">'+
-                        '<div class="required" style="right: -80%">'+
+                        '<div class="required" style="left:3%;margin-right: 2%;">'+
                             '<div class="checkbox-wrapper-15">'+
                                 '<input class="inp-cbx" id="checkbox_field_'+n+'_required" type="checkbox" name="checkbox_field_'+n+'_required" style="display: none;"/>'+
                                 '<label class="cbx" for="checkbox_field_'+n+'_required">'+
@@ -97,7 +97,7 @@ $(document).ready(function() {
                                 '</label>'+
                             '</div>'+
                         '</div>'+
-                        '<div class="required" style="right: -40%">'+
+                        '<div class="required" style="left:3%;">'+
                             '<div class="checkbox-wrapper-15">'+
                                 '<input class="inp-cbx" id="checkbox_field_'+n+'_select" type="checkbox" name="checkbox_field_'+n+'_select" style="display: none;"/>'+
                                 '<label class="cbx" for="checkbox_field_'+n+'_select">'+
@@ -212,4 +212,30 @@ $(document).ready(function() {
         document.getElementById("card_"+id).remove()
         console.log("Deleted")
     }
+
+    // ########################################
+    document.addEventListener("DOMContentLoaded", function() {
+
+    var card1Exists = document.querySelector(".card_1");
+    
+    if (!card1Exists) {
+    var submitBtn = document.querySelector("button[type=submit]");
+    submitBtn.style.display = "none";
+    }
+    
+    document.addEventListener("DOMNodeInserted", function(event) {
+    if (event.target.classList.contains("card_1")) {
+    var submitBtn = document.querySelector("button[type=submit]");
+    submitBtn.style.display = "block";
+    }
+    });
+    
+    document.addEventListener("DOMNodeRemoved", function(event) {
+    if (event.target.classList.contains("card_1")) {
+    var submitBtn = document.querySelector("button[type=submit]");
+    submitBtn.style.display = "none";
+    }
+    });
+    
+    });
     

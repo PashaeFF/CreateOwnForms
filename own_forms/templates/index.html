@@ -1,68 +1,67 @@
 {% extends "layout.html" %}
 {% block content %}
 {% if not forms %}
-    {% else %}
-        <div class="list_forms" style="background-color: #fbf7f7;margin-bottom: 20px;">
-            <table class="table table-striped" style="margin-top:-60px;text-align: center;background-color: #fbf7f7;margin-bottom: 20px;">
-                <thead class="thead-dark">
+{% else %}
+    <div class="list_forms" style="background-color: #fbf7f7;margin-bottom: 20px;">
+        <table class="table table-striped" style="margin-top:-60px;text-align: center;background-color: #fbf7f7;margin-bottom: 20px;border-radius: 10px;">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Url</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Forms count</th>
+                    <th scope="col">Edit / Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for form in forms %}
+                    <br/>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Url</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Forms count</th>
-                        <th scope="col">Edit / Delete</th>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><a href="{{ form.url }}">{{ form.url }}</a></td>
+                        <td><a href="/forms/{{ form.id }}/view">{{ form.form_name }}</a></td>
+                        <td><a href="/forms/{{ form.id }}/list">Filled forms</a> ({{ form.forms_count }})</td>
+                        <td><a href="/forms/{{ form.id }}"><i class="fa fa-edit"></i></a> | <a href="/forms/{{ form.id }}/delete"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                     </tr>
-                </thead>
-                <tbody>
-                    {% for form in forms %}
-                        <br/>
-                        <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td><a href="{{ form.url }}">{{ form.url }}</a></td>
-                            <td><a href="/forms/{{ form.id }}/view">{{ form.form_name }}</a></td>
-                            <td><a href="/forms/{{ form.id }}/list">Filled forms</a> ({{ form.forms_count }})</td>
-                            <td><a href="/forms/{{ form.id }}"><i class="fa fa-edit"></i></a> | <a href="/forms/{{ form.id }}/delete"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% endif %}
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}" role="alert">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    <div class="row">
-        <div class="card col-12" style="background: #fbf7f7;">
-            <form method="POST" style="margin-left: 5%;margin-bottom: 20px;">
-                {% csrf_token %}
-                <br/>
-                <div class="col-md-5">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>
-                </div>
-                <div class="col-md-5">
-                    <label for="url" class="form-label">Your domain</label>
-                    <input type="url" class="form-control" name="url" aria-describedby="url" required>
-                </div>
-                <div class="col-md-5">
-                    <label for="fullname" class="form-label">Name and surname</label>
-                    <input type="text" class="form-control" name="fullname" required>
-                </div>
-                <div class="col-md-5">
-                    <label for="form_name" class="form-label">Form name</label>
-                    <input type="text" class="form-control" name="form_name" required>
-                </div>
-                <br/>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-    <hr>
+{% endif %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="row">
+    <div class="card col-12" style="background: #fbf7f7;border-radius: 10px;">
+        <form method="POST" style="margin-left: 5%;margin-bottom: 5%;">
+            {% csrf_token %}
+            <br/>
+            <div class="col-md-5">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>
+            </div>
+            <div class="col-md-5">
+                <label for="url" class="form-label">Your domain</label>
+                <input type="url" class="form-control" name="url" aria-describedby="url" required>
+            </div>
+            <div class="col-md-5">
+                <label for="fullname" class="form-label">Name and surname</label>
+                <input type="text" class="form-control" name="fullname" required>
+            </div>
+            <div class="col-md-5">
+                <label for="form_name" class="form-label">Form name</label>
+                <input type="text" class="form-control" name="form_name" required>
+            </div>
+            <br/>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
     
 {% endblock content %}

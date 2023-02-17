@@ -85,7 +85,7 @@ def fill_form(request, pk, form_pk):
             my_dict[field_name] = []
         my_dict[field_name].append(add_item)
 
-    FilledForms.objects.create(email=email, fullname=fullname, filled_form=my_dict, form_id_id=form_pk.id)
+    FilledForms.objects.create(filled_form=my_dict, form_id_id=form_pk.id)
     Form.objects.filter(id=form_pk.id).update(forms_count=form_pk.forms_count+1)
     messages.success(request, 'Form filled successfull')
     return redirect('/forms')

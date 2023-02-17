@@ -1,10 +1,5 @@
 {% extends "layout.html" %}
 {% block content %}
-
-<h4>Form name: <i style="color: rgb(9, 5, 100);">{{ title }}</i></h4>
-<h4>Domain: <i><a href="{{ url }}">{{ url }}</a></i></h4>
-<h4>Form Author: <i style="color: rgb(9, 5, 100);">{{ author }}</i></h4>
-
 {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -14,66 +9,31 @@
         {% endfor %}
     </ul>
 {% endif %}
-<div class="row">
-    <div class="col-md-8 col-centered" style="align-items: center;">
-        <form method="POST" enctype="multipart/form-data">
-            <div class="col-12" id="cards">  
-                {% csrf_token %}
-                {{ form.as_p }}
-                <br/>
-                
-                        <!-- <div class="required" style="display:flex;right: -70%">
-                            <span style="margin-right: 10px;top: 10px;">Required</span>
-                            <div class="checkbox-wrapper-7">
-                                <input class="tgl tgl-ios" id="cb2-7" type="checkbox"/>
-                                <label class="tgl-btn" for="cb2-7"></label>
-                            </div>
-                        </div> -->
-                        <!-- <div class="toggler-container">
-                            <div class="required">
-                              <label class="toggler-wrapper style-1">
-                                <input type="checkbox" name="required">
-                                <div class="toggler-slider">
-                                  <div class="toggler-knob"></div>
-                                </div>
-                                <span class="toggler-label">Required</span>
-                              </label>
-                            </div>
-                            <div class="one_selection">
-                              <label class="toggler-wrapper style-1">
-                                <span class="toggler-label">Only one selection</span>
-                                <input type="checkbox" name="required">
-                                <div class="toggler-slider">
-                                  <div class="toggler-knob"></div>
-                                </div>
-                              </label>
-                            </div>
-                            <br/>
-                        </div> -->
-                          
-                    
-                    <br/>
-                </div>
-                <br/>
-
-            </div>
-            <div class="col-12 text-right" id="add_to">
-                <a class="btn btn-light" type="button" name="add_question" id="add_question" value="Question" data-toggle="tooltip" data-placement="top" title="Just Quetion"><i class="fa fa-file-text-o"></i></a>
-                <a class="btn btn-light" type="button" name="add_checkbox" id="add_checkbox" value="Checkbox" data-toggle="tooltip" data-placement="top" title="Checkbox for more selection"><i class="fa fa-check-square-o"></i></a>
-            </div>
-            <div class="col-12 m-3">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-            </form>
+<div class="col-md-12">
+    <form method="POST" enctype="multipart/form-data">
+        <div class="col-12" id="cards">  
+            {% csrf_token %}
+            {{ form.as_p }}
             <br/>
-            <div class="check_required" style="display:flex;align-self: right;"></div>"
-            <!-- Optional JavaScript -->
-            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+            
+        </div>
+        <div class="col-8" style="left: 10%;margin-bottom: 10px;">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
         
-            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> 
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-            <script src="{{ files_path }}add_values.js"></script>
+        
+    </form>
+    <div class="fixedButton" id="add_to">
+        <a class="btn btn-light" name="add_question" id="add_question" style="margin-bottom: 2px; margin-right: 15px;" value="Question" data-toggle="tooltip" data-placement="top" title="Just Quetion"><i class="fa fa-file-text-o"></i></a><br/>
+        <a class="btn btn-light" name="add_checkbox" id="add_checkbox" value="Checkbox" data-toggle="tooltip" data-placement="top" title="Checkbox for more selection"><i class="fa fa-check-square-o"></i></a>
     </div>
+    <div class="check_required" style="display:flex;align-self: right;"></div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="{{ files_path }}add_values.js"></script>
 </div>
 {% endblock content %}

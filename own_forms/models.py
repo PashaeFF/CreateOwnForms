@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
-from datetime import datetime
+
 
 class Form(models.Model):
     email = models.CharField(max_length=200)

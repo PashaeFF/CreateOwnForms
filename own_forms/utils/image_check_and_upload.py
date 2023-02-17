@@ -46,7 +46,7 @@ def image_upload(request, pk, form_pk, my_dict):
         extension = fileitem.name.split('.')[-1]
         if fileitem.name:
             image = Image.open(fileitem.file)
-            print(f"Original size : {image.size}")
+            print(f"Image original size: {image.size}")
             image_name = f'{uuid.uuid4()}.{extension}'
             ####### if the size of the image is larger than 400kb, it degrades its quality
             if fileitem.size < 400000:
