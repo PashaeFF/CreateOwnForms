@@ -15,7 +15,7 @@ def check_values_for_add_form(request, pk, form_pk):
         return redirect(f"/forms/{form_pk.id}")
     for nums, (key, add_item) in enumerate(form.items(), 0):
         key_parts = key.split("_")
-        # print("key_parts>>>", key_parts)
+        print("key_parts>>>", add_item)
         #### Index 0 of the dict is set to 'title'. A title must be included. Returns an error if 'header' is missing or has been modified
         if nums == 1:
             if key_parts[-1] != 'title':
@@ -26,7 +26,10 @@ def check_values_for_add_form(request, pk, form_pk):
         #### We compare this (field_name) to a list of 'form_keys' so that other keys in the frontend are not located in the database
         field_name = "_".join(key_parts[:3])
         field_check_name = "_".join(key_parts[:2])
-        # print("field_name[0:-1]:",field_name)
+        print("field_name:",field_name)
+        if key_parts[-1] == 'description':
+            if len(add_item) == 0:
+                continue
         if len(add_item) < 1:
             messages.warning(request, 'Inputs cannot be empty')
             return redirect(f"/forms/{form_pk.id}")
@@ -38,6 +41,8 @@ def check_values_for_add_form(request, pk, form_pk):
             my_dict[field_name] = {'title':None,'description':None,'image':[],'uploaded_image':[],'youtube':[],
                                     'url':[],'input':None,'values':[], 'required':None, 'allow':None, 'counter':0}
         ######## check dictionary keys
+        if field_check_name == 'question_field':
+            my_dict[field_name].update({'input':True})
         if key_parts[-1] == 'title':
             my_dict[field_name].update({'title':add_item})
             count+=1
@@ -45,8 +50,6 @@ def check_values_for_add_form(request, pk, form_pk):
             
         elif key_parts[-1] == 'description':
             my_dict[field_name].update({'description':add_item})
-            if field_name[0:-1] == 'question_field_':
-                my_dict[field_name].update({'input':True})
         elif key_parts[-1] == 'image':
             my_dict[field_name].get('image').append(add_item)
         elif key_parts[-1] == 'youtube':

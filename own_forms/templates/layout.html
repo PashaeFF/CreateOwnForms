@@ -13,16 +13,19 @@
     
     <link rel="stylesheet" type="text/css" href="/static/floating.css">
 </head>
-<body>
-<hr>
-<main role="main" class="container">
+<body style="background-color: #e0e0e0;">
+
+<main role="main">
+  <div class="headline">
+    <img class="logo" src="/static/site/logo.png">
+</div>
     {% block content %}{% endblock %}
 </main>
 <footer class="bg-dark text-center text-white">
 
   <!-- Copyright -->
-  <div class="text-center p-3" style="background-color: rgb(126, 124, 198);">
-    By <a class="text-white" href="https://pashayevsproject.com/">PashayevsProject</a>
+  <div class="text-center p-3">
+    Forms by <a class="text-white" href="https://pashayevsproject.com/">PashayevsProject</a>
   </div>
   <!-- Copyright -->
 </footer>

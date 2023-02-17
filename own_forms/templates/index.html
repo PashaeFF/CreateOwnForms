@@ -1,13 +1,9 @@
-
 {% extends "layout.html" %}
 {% block content %}
-    <h1>{{ title }}</h1><br/>
-    <div class="row">
-        <div class="card col-md-12 col-centered" style="background: #fbf7f7;">
-            {% if not forms %}
-            {% else %}
-            
-            <table class="table table-striped" style="text-align: center;">
+{% if not forms %}
+    {% else %}
+        <div class="list_forms" style="background-color: #fbf7f7;margin-bottom: 20px;">
+            <table class="table table-striped" style="margin-top:-60px;text-align: center;background-color: #fbf7f7;margin-bottom: 20px;">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
@@ -30,11 +26,8 @@
                     {% endfor %}
                 </tbody>
             </table>
-            {% endif %}
-            <hr>
         </div>
-    </div>
-    <br/>
+    {% endif %}
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -45,8 +38,8 @@
     </ul>
     {% endif %}
     <div class="row">
-        <div class="card col-md-12 col-centered" style="background: #fbf7f7;">
-            <form method="POST">
+        <div class="card col-12" style="background: #fbf7f7;">
+            <form method="POST" style="margin-left: 5%;margin-bottom: 20px;">
                 {% csrf_token %}
                 <br/>
                 <div class="col-md-5">
@@ -68,8 +61,8 @@
                 <br/>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-            <br/>
         </div>
     </div>
     <hr>
+    
 {% endblock content %}

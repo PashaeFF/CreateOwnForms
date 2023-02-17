@@ -21,71 +21,7 @@
                 {% csrf_token %}
                 {{ form.as_p }}
                 <br/>
-                <div class="card" id="card_'+n+'" style="background: #fbf7f7;">
-                    <div class="card-body" id="body_'+n+'">
-                        <a class="btn btn-light" style="font-size:24px;float:right;" id="remove" name="remove" onclick="RemoveCard('+n+')" value="Remove" data-toggle="tooltip" data-placement="top" title="Remove"><i class="fa fa-remove"></i></a>
-                        <h5 class="card-title">Checbox</h5>
-                        <div class="mb-3">
-                            <label for="checkbox_field_'+n+'_title" class="form-label">*Title/Question</label>
-                            <input type="text" class="form-control" name="checkbox_field_'+n+'_title" placeholder="Title or question" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea class="form-control rounded-0" id="description" name="checkbox_field_'+n+'_'+v+'_description" rows="3"></textarea>
-                        </div>
-                        <div class="mb-3" id="value">
-                            <label for="value" class="form-label">*Value</label>
-                            <input type="text" class="form-control" name="checkbox_field_'+n+'_'+v+'_values" id="checkbox_field_'+n+'_'+v+'_values" placeholder="Value" required>
-                        </div>
-                        <!-- checccckkk -->
-                        <div class="checkbox-wrapper-15">
-                            <input class="inp-cbx" id="allow" type="checkbox" name="allow" style="display: none;"/>
-                            <label class="cbx" for="allow">
-                              <span>
-                                <svg width="12px" height="9px" viewbox="0 0 12 9">
-                                  <polyline points="1 5 4 8 11 1"></polyline>
-                                </svg>
-                              </span>
-                              <span>Allow to add another answer</span>
-                            </label>
-                          </div>
-                        <!--  end  -->
-                        <div class="add_'+n+'" id="add_'+n+'">
-                            <a class="btn btn-light" type="button" name="add_value_to_checkbox" id="add_value_to_checkbox" value="Value" onclick="AddValueToCheckboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Value"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Value</a>
-                            <a class="btn btn-light" type="button" name="add_url_to_checkbox" id="add_url_to_checkbox" value="Add Url" onclick="AddUrlToCheckboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Url"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Url</a>
-                            <a class="btn btn-light" type="button" name="add_image_url_to_checkbox" id="add_image_url_to_checkbox" value="Image Url" onclick="AddImageUrlToCheckboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Image Url"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Image Url</a>
-                            <a class="btn btn-light" type="button" name="add_youtube_url_to_checkbox" id="add_youtube_url_to_checkbox" value="Youtube Url" onclick="AddYoutubeUrlToCheckboxField('+n+')" data-toggle="tooltip" data-placement="top" title="Add Youtube Url"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Youtube Url</a>
-                            <a class="btn btn-light" type="button" name="add_image_to_checkbox" id="add_image_to_checkbox_'+n+'" value="Image" onclick="AddImageToCheckboxField('+n+');" data-toggle="tooltip" data-placement="top" title="Add Image"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Image</a>
-                        </div>
-                        </div>
-                        <div class="one_line" style="display:flex;">
-                            <div class="required" style="right: -80%">
-                                <div class="checkbox-wrapper-15">
-                                    <input class="inp-cbx" id="required" type="checkbox" name="required" style="display: none;"/>
-                                    <label class="cbx" for="required">
-                                    <span>
-                                        <svg width="12px" height="9px" viewbox="0 0 12 9">
-                                        <polyline points="1 5 4 8 11 1"></polyline>
-                                        </svg>
-                                    </span>
-                                    <span>Required</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="required" style="right: -45%">
-                                <div class="checkbox-wrapper-15">
-                                    <input class="inp-cbx" id="one_selection" type="checkbox" name="select" style="display: none;"/>
-                                    <label class="cbx" for="one_selection">
-                                    <span>
-                                        <svg width="12px" height="9px" viewbox="0 0 12 9">
-                                        <polyline points="1 5 4 8 11 1"></polyline>
-                                        </svg>
-                                    </span>
-                                    <span>One Selection</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                
                         <!-- <div class="required" style="display:flex;right: -70%">
                             <span style="margin-right: 10px;top: 10px;">Required</span>
                             <div class="checkbox-wrapper-7">
