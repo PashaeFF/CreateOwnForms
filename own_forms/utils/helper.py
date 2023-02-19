@@ -13,9 +13,9 @@ def check_values_for_add_form(request, pk, form_pk):
     if len(form) < 2:
         messages.warning(request, 'Form is empty')
         return redirect(f"/forms/{form_pk.id}")
+    
     for nums, (key, add_item) in enumerate(form.items(), 0):
         key_parts = key.split("_")
-        print("key_parts>>>", add_item)
         #### Index 0 of the dict is set to 'title'. A title must be included. Returns an error if 'header' is missing or has been modified
         if nums == 1:
             if key_parts[-1] != 'title':
@@ -26,7 +26,6 @@ def check_values_for_add_form(request, pk, form_pk):
         #### We compare this (field_name) to a list of 'form_keys' so that other keys in the frontend are not located in the database
         field_name = "_".join(key_parts[:3])
         field_check_name = "_".join(key_parts[:2])
-        print("field_name:",field_name)
         if key_parts[-1] == 'description':
             if len(add_item) == 0:
                 continue
@@ -34,14 +33,17 @@ def check_values_for_add_form(request, pk, form_pk):
             messages.warning(request, 'Inputs cannot be empty')
             return redirect(f"/forms/{form_pk.id}")
         if field_check_name not in form_keys:
-            # print("errorrrr", field_name[0:-1])
             messages.warning(request, 'Something went wrong')
             return redirect(f"/forms/{form_pk.id}")
         if field_name not in my_dict:
             my_dict[field_name] = {'title':None,'description':None,'image':[],'uploaded_image':[],'youtube':[],
-                                    'url':[],'input':None,'values':[], 'required':None, 'allow':None, 'counter':0}
+                                    'url':[],'button':[],'input':None,'values':[], 'required':None, 'allow':None, 'counter':0}
         ######## check dictionary keys
         if field_check_name == 'question_field':
+            if key_parts[-1] == 'button':
+                my_dict[field_name]['button'].append(add_item)
+                if key_parts[-1] == 'allow':
+                    my_dict[field_name].update({'allow':True})
             my_dict[field_name].update({'input':True})
         if key_parts[-1] == 'title':
             my_dict[field_name].update({'title':add_item})
@@ -80,4 +82,42 @@ def check_values_for_add_form(request, pk, form_pk):
                 check_value.pop(value_none)
     for k,i in my_dict.items():
         print(f"key>> {k} | value>> {i}")
+    return my_dict
+
+
+
+def fill_form(request, pk, form_pk):
+    form_keys = ['checkbox_field', 'question_field']
+    form = (request.POST or None)
+    my_dict = {}
+    for key, add_item in form.items():
+        # print(f"key: {key} | value: {add_item}")
+        key_parts = key.split("_")
+        if key == 'csrfmiddlewaretoken':
+            continue
+        if key == 'email':
+            if len(add_item) < 4 or "@" not in add_item:
+                messages.warning(request, 'Wrong email')
+                return redirect(f"/forms/{form_pk.id}/view")
+            email = add_item
+            continue
+        elif key == 'name':
+            if len(add_item) < 1:
+                messages.warning(request, 'Name cannot be empty')
+                return redirect(f"/forms/{form_pk.id}/view")
+            fullname = add_item
+            continue
+        field_name = "_".join(key_parts[:3])
+        check_field = "_".join(key_parts[:2])
+        if len(add_item) < 1:
+            messages.warning(request, 'Inputs cannot be empty')
+            return redirect(f"/forms/{form_pk.id}/view")
+        if check_field not in form_keys:
+            messages.warning(request, 'Something went wrong')
+            return redirect(f"/forms/{form_pk.id}/view")
+        if field_name not in my_dict:
+            my_dict[field_name] = []
+        my_dict[field_name].append(add_item)
+    # for k,i in my_dict[0:1].items():
+    #     print(i)
     return my_dict

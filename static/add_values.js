@@ -22,12 +22,13 @@ $(document).ready(function() {
                             '<textarea class="form-control rounded-0" id="description" name="question_field_'+n+'_description" rows="3"></textarea>'+
                         '</div>'+
                         '<a class="btn btn-light" type="button" name="add_image_to_question" id="add_image_to_question_'+n+'" value="Image" onclick="AddImageToQuestionField('+n+');" data-toggle="tooltip" data-placement="top" title="Add Image"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Image</a>'+
+                        '<a class="btn btn-light" type="button" name="add_select_button_to_question" id="add_select_button_to_question_'+n+'" value="Button" onclick="AddSelectButtonToQuestionField('+n+');Allow('+n+');" data-toggle="tooltip" data-placement="top" title="Add Button"><i class="fa fa-plus" style="color:green;" aria-hidden="true"></i> Answers</a>'+
                     '</div>'+
                     '<div class="one_line" style="display:flex;">'+
                         '<div class="required" style="left:3%;margin-right: 2%;">'+
                             '<div class="checkbox-wrapper-15">'+
-                                '<input class="inp-cbx" id="checkbox_field_'+n+'_required" type="checkbox" name="checkbox_field_'+n+'_required" style="display: none;"/>'+
-                                '<label class="cbx" for="checkbox_field_'+n+'_required">'+
+                                '<input class="inp-cbx" id="question_field_'+n+'_required" type="checkbox" name="question_field_'+n+'_required" style="display: none;"/>'+
+                                '<label class="cbx" for="question_field_'+n+'_required">'+
                                     '<span>'+
                                         '<svg width="12px" height="9px" viewbox="0 0 12 9">'+
                                             '<polyline points="1 5 4 8 11 1"></polyline>'+
@@ -43,8 +44,10 @@ $(document).ready(function() {
                 '<br/>');
                 n++;
                 x++;
+    
                 }
             }) 
+        
     $("#add_checkbox").click(function(){
         if(x <= max){
             $("#cards").append(
@@ -132,6 +135,36 @@ $(document).ready(function() {
         console.log("Image added")
         v++;
     }
+    function AddSelectButtonToQuestionField(id){
+        if (document.getElementById('allow_button_answer_'+id)){
+            document.getElementById('allow_button_answer_'+id).remove()
+        }
+        $("#body_"+id).append(
+            '<div class="mb-3" id="button_value_'+v+'" name="button_value_'+id+'" style="display:flex;">'+
+                '<input class="form-control" type="text" name="question_field_'+id+'_'+v+'_button" id="question_field_'+id+'_button" required><a class="btn btn-light" style="font-size:24px;color:brown;" onclick="RemoveButtonValue('+v+');CheckAllow('+id+');" value="Remove"><i class="fa fa-remove"></i></a>'+
+            '</div>'
+            );
+        console.log("Button added")
+        v++;
+    }
+    function Allow(id){
+        $("#body_"+id).append(
+            '<div class="allow_button_answer" id="allow_button_answer_'+id+'">'+
+                '<div class="checkbox-wrapper-15">'+
+                    '<input class="inp-cbx" id="question_field_'+id+'_allow" type="checkbox" name="question_field_'+id+'_allow" style="display: none;"/>'+
+                    '<label class="cbx" for="question_field_'+id+'_allow">'+
+                        '<span>'+
+                            '<svg width="12px" height="9px" viewbox="0 0 12 9">'+
+                                '<polyline points="1 5 4 8 11 1"></polyline>'+
+                            '</svg>'+
+                        '</span>'+
+                        '<span>Allow to add another answer</span>'+
+                    '</label>'+
+                '</div>'+
+            '<div>'
+        );
+        console.log('Allowed')
+    }
     // ########### For CheckBox ##################
     function AddValueToCheckboxField(id){
         $("#body_"+id).append(
@@ -185,13 +218,23 @@ $(document).ready(function() {
     }
 
     // ############ Remove elements #############
+    function RemoveButtonValue(id){
+        document.getElementById("button_value_"+id).remove()
+        console.log("Button Value Deleted>>> "+id)
+
+    } 
+    function CheckAllow(id){
+        if (!document.getElementById("question_field_"+id+"_button")){
+            document.getElementById("allow_button_answer_"+id).remove()
+        }
+    } 
     function RemoveValue(id){
         document.getElementById("value_"+id).remove()
-        console.log("Value Deleted>>>"+id)
+        console.log("Value Deleted>>> "+id)
     } 
     function RemoveImage(id){
         document.getElementById("image_"+id).remove()
-        console.log("Image Deleted>>>"+id)
+        console.log("Image Deleted>>> "+id)
     } 
     // ############ Buttons ######################
     function ImageAddingButtonToCheckBox(id){
