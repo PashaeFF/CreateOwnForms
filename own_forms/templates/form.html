@@ -90,7 +90,7 @@
                                     <!-- ##### VI checkbox item  ##### -->
                                     {% elif k == 'values' %}
                                         <!-- ##### Radio item  ##### -->
-                                        {% if True in i %}
+                                        {% if 'one_selection' in value.keys %}
                                             <div class="form-check">
                                                 {% for val in i %}
                                                 <input class="{{ key }}" type="radio" id="{{ key }}" name="{{ key }}" value="{{ val }}"  data-target="{{ key }}" {% if value.required %}onchange="RemoveAtribute('{{ key }}')" required{% endif %}>
@@ -101,7 +101,7 @@
                                         {% else %}
                                             <div class="form-check">
                                                 {% for val in i %}
-                                                    <input type="checkbox" id="{{ key }}" name="{{ key }}"   value="{{ val }}"  {% if value.required %}onchange="RemoveAtribute('{{ key }}')" required{% endif %}>
+                                                    <input class="{{ key }}"  type="checkbox" id="{{ key }}" name="{{ key }}_{{ forloop.counter }}"   value="{{ val }}"  {% if value.required %}onchange="RemoveAtribute('{{ key }}')" required{% endif %}>
                                                     <label for="{{ key }}">{{ val }}</label><br>
                                                 {% endfor %}
                                             </div>
@@ -110,7 +110,7 @@
                                     {% elif k == 'allow' %}
                                         <label for="{{ key }}">Your own answer</label>
                                         <div class="description" style="text-align: left;">
-                                        <textarea class="{{ key }}" style="width:100%" id="{{ key }}" name="{{ key }}_{{ forloop.counter }}" value="" {% if value.required %}oninput="toggleRequired('{{ key }}')" required{% endif %}></textarea>
+                                        <textarea class="{{ key }}" style="width:100%" id="{{ key }}" name="{{ key }}_{{ forloop.counter }}_text" {% if value.required %}oninput="toggleRequired('{{ key }}')" required{% endif %}></textarea>
                                         </div>
                                     {% endif %}
                                     <!--  ################ End Checkbox Field   ################  -->

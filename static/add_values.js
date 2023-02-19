@@ -65,7 +65,7 @@ $(document).ready(function() {
                         '</div>'+
                         '<div class="mb-3" id="value">'+
                             '<label for="value" class="form-label">*Value</label>'+
-                            '<input type="text" class="form-control" name="checkbox_field_'+n+'_'+v+'_values" id="checkbox_field_'+n+'_'+v+'_values" placeholder="Value" required>'+
+                            '<input type="text" class="form-control" name="checkbox_field_'+n+'_1_values" id="checkbox_field_1_'+v+'_values" placeholder="Value" required>'+
                         '</div>'+
                         '<div class="checkbox-wrapper-15">'+
                             '<input class="inp-cbx" id="checkbox_field_'+n+'_allow" type="checkbox" name="checkbox_field_'+n+'_allow" style="display: none;"/>'+
@@ -123,7 +123,7 @@ $(document).ready(function() {
             }) 
         })
 
-    var v = 1
+    var v = 2
     // ########### For Question ############
     function AddImageToQuestionField(id){
         document.getElementById("add_image_to_question_"+id).remove()

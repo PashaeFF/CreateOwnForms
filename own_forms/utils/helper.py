@@ -1,8 +1,7 @@
 from django.shortcuts import redirect
 from django.contrib import messages
 from .image_check_and_upload import check_image_upload_errors, image_upload
-from django.core.serializers import serialize
-import json
+from django.http import HttpResponse
 
 def check_values_for_add_form(request, pk, form_pk):
     form_keys = ['checkbox_field', 'question_field']
@@ -37,7 +36,7 @@ def check_values_for_add_form(request, pk, form_pk):
             return redirect(f"/forms/{form_pk.id}")
         if field_name not in my_dict:
             my_dict[field_name] = {'title':None,'description':None,'image':[],'uploaded_image':[],'youtube':[],
-                                    'url':[],'button':[],'input':None,'values':[], 'required':None, 'allow':None, 'counter':0}
+                                    'url':[],'button':[],'input':None,'values':[], 'required':None, 'allow':None, 'one_selection':None, 'counter':0}
         ######## check dictionary keys
         if field_check_name == 'question_field':
             if key_parts[-1] == 'button':
@@ -62,7 +61,7 @@ def check_values_for_add_form(request, pk, form_pk):
             my_dict[field_name].get('values').append(add_item)
         elif key_parts[-1] == 'select':
             if add_item == "on":
-                my_dict[field_name]['values'].append(True)
+                my_dict[field_name].update({'one_selection':True})
         elif key_parts[-1] == 'allow':
             if add_item == "on":
                 my_dict[field_name].update({'allow':True})
@@ -85,11 +84,15 @@ def check_values_for_add_form(request, pk, form_pk):
     return my_dict
 
 
-
 def fill_form(request, pk, form_pk):
-    form_keys = ['checkbox_field', 'question_field']
     form = (request.POST or None)
     my_dict = {}
+    for keys, val in form_pk.values.items():
+        if keys not in my_dict:
+            my_dict.update({keys:[]})
+        if 'required' in val.keys():
+            my_dict[keys].append(True)
+    # print("my_dict", my_dict)
     for key, add_item in form.items():
         # print(f"key: {key} | value: {add_item}")
         key_parts = key.split("_")
@@ -104,20 +107,23 @@ def fill_form(request, pk, form_pk):
         elif key == 'name':
             if len(add_item) < 1:
                 messages.warning(request, 'Name cannot be empty')
-                return redirect(f"/forms/{form_pk.id}/view")
+                return HttpResponse
             fullname = add_item
             continue
         field_name = "_".join(key_parts[:3])
-        check_field = "_".join(key_parts[:2])
         if len(add_item) < 1:
-            messages.warning(request, 'Inputs cannot be empty')
-            return redirect(f"/forms/{form_pk.id}/view")
-        if check_field not in form_keys:
-            messages.warning(request, 'Something went wrong')
-            return redirect(f"/forms/{form_pk.id}/view")
+            if key_parts[-1] == 'text':
+                continue
+            else:
+                messages.warning(request, 'Inputs cannot be empty')
+                return HttpResponse
         if field_name not in my_dict:
-            my_dict[field_name] = []
+            messages.warning(request, 'Something went wrong')
+            return HttpResponse
         my_dict[field_name].append(add_item)
-    # for k,i in my_dict[0:1].items():
-    #     print(i)
+    for i in my_dict.values():
+        if True in i:
+            if len(i) < 2:
+                messages.warning(request, 'Required dnputs cannot be empty')
+                return HttpResponse 
     return my_dict

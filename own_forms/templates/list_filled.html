@@ -26,7 +26,7 @@
                         <br/>
                         <tr>
                             <th scope="row">{{ forloop.counter }}</th>
-                            <td><a href="/forms/{{ data_item.id }}/">{{ data_item.fullname }}</a></td>
+                            <td><a href="/forms/{{ id }}/filled_form/{{ data_item.id }}/view">{{ data_item.fullname }}</a></td>
                             <td>{{ data_item.email }}</td>
                             <td>{{ data_item.created_at }}</td>
                             <td><a class="btn btn-light" href="/forms/{{ data_item.id }}/delete_filled_form"><i class="fa fa-remove" style="color:brown"></i></a></td>

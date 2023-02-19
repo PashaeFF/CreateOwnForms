@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import FirstForm
 from django.contrib import messages
 from .models import Form, FilledForms
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .utils.helper import check_values_for_add_form, fill_form
 import shutil
 
@@ -60,14 +60,6 @@ def get_form(request, pk=None):
         if len(values) < 1:
             messages.warning(request, 'The form is empty, fill in your information')
             return redirect(f'/forms/{form_pk.id}')
-        #### filled form post request
-        if request.method == 'POST':
-            fill_form(request, pk, form_pk)
-            FilledForms.objects.create(filled_form=fill_form(request, pk, form_pk), form_id_id=form_pk.id)
-            Form.objects.filter(id=form_pk.id).update(forms_count=form_pk.forms_count+1)
-            messages.success(request, 'Form filled successfull')
-            return redirect('/forms')
-
         context = {
             'title':form_pk.form_name,
             'id':form_pk.id,
@@ -76,6 +68,26 @@ def get_form(request, pk=None):
             'data':values,
             'images_path':images_path
         }
+        #### filled form post request
+        if request.method == 'POST':
+            my_dict = fill_form(request, pk, form_pk)
+            # for e,u in form_pk.values.items():
+            #     for k,i in my_dict.items():
+            #         if e not in my_dict.keys():
+            #             print(e)
+            #             # print(f"form_pk> key {e} | value {u}")
+            #             # print(f"my_dict> key {k} | value {i}")
+
+
+            if type(my_dict) == dict:
+                FilledForms.objects.create(filled_form=fill_form(request, pk, form_pk), form_id_id=form_pk.id)
+                Form.objects.filter(id=form_pk.id).update(forms_count=form_pk.forms_count+1)
+                messages.success(request, 'Form filled successfull')
+                return redirect('/forms')
+            else:
+                return redirect(f"/forms/{form_pk.id}/view")
+
+       
         return HttpResponse(render(request, 'form.html', context))
     else:
         messages.warning(request, 'Form not found')
@@ -100,7 +112,26 @@ def get_the_list_of_filled_form(request, pk=None):
 
 
 def get_filled_form(request, pk=None, wk=None):
-    form_pk = FilledForms.objects.filter(form_id_id=pk).all()
+    form_pk = Form.objects.filter(id=pk).first()
+    # print(form_pk)
+    if form_pk:
+        filled = FilledForms.objects.filter(id=wk).first()
+        context = {
+            'title':form_pk.form_name,
+            'id':form_pk.id,
+            'url':form_pk.url,
+            'author':form_pk.fullname,
+            "data":form_pk
+        }
+        if filled:
+            
+            messages.warning(request, 'var')
+            return render(request, 'get_filled_form.html', context)
+        messages.warning(request, 'Form not found')
+        return redirect('/forms')
+    messages.warning(request, 'Form not found')
+    return redirect('/forms')
+
 
 def delete_filled_form(request, pk=None):
     form_pk = FilledForms.objects.filter(id=pk).first()

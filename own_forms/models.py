@@ -25,6 +25,7 @@ class FilledForms(models.Model):
     filled_form = models.JSONField(default=dict)
     form_id = models.ForeignKey(Form, default=1, verbose_name="own_forms", on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=now)
+    counter = models.IntegerField(default=0)
 
     class Meta:
         db_table = "filled_forms"

@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:pk>/delete_filled_form', views.delete_filled_form),
     path('<int:pk>/view_filled_form/<int:wk>', views.delete_filled_form),
     path('<int:pk>/delete', views.delete_form),
+    path('<int:pk>/filled_form/<int:wk>/view', views.get_filled_form),
 ]
