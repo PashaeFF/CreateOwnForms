@@ -79,8 +79,8 @@ def check_values_for_add_form(request, pk, form_pk):
         for value_none in check_value.copy():
             if not check_value[value_none]:
                 check_value.pop(value_none)
-    for k,i in my_dict.items():
-        print(f"key>> {k} | value>> {i}")
+    # for k,i in my_dict.items():
+        # print(f"key>> {k} | value>> {i}")
     return my_dict
 
 
@@ -90,11 +90,10 @@ def fill_form(request, pk, form_pk):
     for keys, val in form_pk.values.items():
         if keys not in my_dict:
             my_dict.update({keys:[]})
+        ## check required keys and append to my_dict[keys]
         if 'required' in val.keys():
             my_dict[keys].append(True)
-    # print("my_dict", my_dict)
     for key, add_item in form.items():
-        # print(f"key: {key} | value: {add_item}")
         key_parts = key.split("_")
         if key == 'csrfmiddlewaretoken':
             continue

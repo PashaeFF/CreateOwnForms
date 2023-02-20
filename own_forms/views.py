@@ -5,9 +5,8 @@ from .models import Form, FilledForms
 from django.http import HttpResponse, JsonResponse
 from .utils.helper import check_values_for_add_form, fill_form
 import shutil
-
 # from django.core.files.uploadedfile import InMemoryUploadedFile
- 
+
 
 def index(request):
     forms = Form.objects.all()
@@ -23,7 +22,7 @@ def index(request):
             return redirect('/forms')
         else:
             if form.is_valid():
-                print(form['fullname'].value())
+                # print(form['fullname'].value())
                 new_form = Form.objects.create(email=form['email'].value(), url=form['url'].value(), fullname=form['fullname'].value(), form_name=form['form_name'].value())
                 new_form.save()
                 form_url = Form.objects.filter(url=form['url'].value()).first()
@@ -42,7 +41,6 @@ def create_values_for_form(request, pk=None):
             'files_path':files_path
         }
         if request.method == 'POST':
-            # print(check_values_for_add_form(request, pk, form_pk))
             Form.objects.filter(id=pk).update(values=check_values_for_add_form(request, pk, form_pk))
             messages.success(request, 'Form created')
             return redirect("/forms")
@@ -71,14 +69,6 @@ def get_form(request, pk=None):
         #### filled form post request
         if request.method == 'POST':
             my_dict = fill_form(request, pk, form_pk)
-            # for e,u in form_pk.values.items():
-            #     for k,i in my_dict.items():
-            #         if e not in my_dict.keys():
-            #             print(e)
-            #             # print(f"form_pk> key {e} | value {u}")
-            #             # print(f"my_dict> key {k} | value {i}")
-
-
             if type(my_dict) == dict:
                 FilledForms.objects.create(filled_form=fill_form(request, pk, form_pk), form_id_id=form_pk.id)
                 Form.objects.filter(id=form_pk.id).update(forms_count=form_pk.forms_count+1)
