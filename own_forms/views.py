@@ -103,19 +103,26 @@ def get_the_list_of_filled_form(request, pk=None):
 
 def get_filled_form(request, pk=None, wk=None):
     form_pk = Form.objects.filter(id=pk).first()
-    # print(form_pk)
     if form_pk:
         filled = FilledForms.objects.filter(id=wk).first()
-        context = {
+        if filled:
+            context = {
             'title':form_pk.form_name,
             'id':form_pk.id,
             'url':form_pk.url,
             'author':form_pk.fullname,
-            "data":form_pk
-        }
-        if filled:
-            print("var")
-            messages.warning(request, 'var')
+            "data":form_pk.values,
+            "filled":filled
+            }
+            if len(filled.filled_form) < 1:
+                messages.warning(request, 'Form is empty')
+                return redirect(f'/forms/{form_pk.id}/list')
+            # print("form_pk len", len(form_pk.values))
+            print("form_pk", form_pk.values)
+            # print("form >>>", filled.filled_form)
+            # print("form len >>>", len(filled.filled_form))
+
+            # messages.warning(request, 'var')
             return render(request, 'get_filled_form.html', context)
         messages.warning(request, 'Form not found')
         return redirect('/forms')

@@ -110,12 +110,6 @@ def fill_form(request, pk, form_pk):
             fullname = add_item
             continue
         field_name = "_".join(key_parts[:3])
-        if len(add_item) < 1:
-            if key_parts[-1] == 'text':
-                continue
-            else:
-                messages.warning(request, 'Inputs cannot be empty')
-                return HttpResponse
         if field_name not in my_dict:
             messages.warning(request, 'Something went wrong')
             return HttpResponse
@@ -123,6 +117,6 @@ def fill_form(request, pk, form_pk):
     for i in my_dict.values():
         if True in i:
             if len(i) < 2:
-                messages.warning(request, 'Required dnputs cannot be empty')
+                messages.warning(request, 'Required inputs cannot be empty')
                 return HttpResponse 
     return my_dict

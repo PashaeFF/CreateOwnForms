@@ -6,28 +6,37 @@
 <div class="container">
 <br/>
     <div class="col-md-10">
-                <div class="card_1" id="card_{{ key }}" style="background: #fbf7f7;">
-                    <div class="card-header">
-                        
+        {% for key, value in data.items %}
+            {% for key_1, value_1 in filled.filled_form.items %}
+                {% if key == key_1 %}
+                    <div class="card_1" id="card_{{ key }}" style="background: #fbf7f7;">
+                        <div class="card-header">
+                            {{ value.counter }}. Question > <font style="color:red">{{ value.title }}</font>
+                        </div>
+                        <div class="card-body">
+                            {% for question in }
+                            Answer > 
+                            {% for answer in value_1 %}
+                                {% if answer != True %}
+                                    <font style="color:rgb(1, 153, 29)">{{ answer }}</font>
+                                {% endif %}
+                            {% endfor %}
+                            {% if value_1|length < 2 %}
+                                No answer was given
+                            {% endif %}
+                        </div>
+                        <hr>
                     </div>
-                    <div class="card-body">
-                        
-                        
-                    </div>
-                    <hr>
-                </div>
-            <div class="col-8 m-3" id="submit" style="text-align: right;right: -15%;">
-                
-            </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
         
         <hr>
         <div class="paga_count"  style="text-align: center;">
             <label id="page_count" style="color:slategrey"></label>
         </div>
-        <div class="pagination-buttons" style="text-align:center;">
-            <button id="prev-btn" disabled>Prev</button>
-            <button id="next-btn" style="background-color: #01cb30;">Next</button>
-        </div>
+
     </div>
 </div>
         <!-- Script -->
