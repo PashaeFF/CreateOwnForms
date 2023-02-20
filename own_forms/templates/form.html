@@ -17,6 +17,20 @@
         {% endif %}
         <form method="POST">
             {% csrf_token %}
+            <div class="info_card" id="info_card" style="background: #dfd5d5;">
+                <div class="card-header">
+                    <i class="fa fa-user" style="color: rgb(19, 189, 3);font-size: 18px;"></i> Personal information
+                </div>
+                <div class="card-body">
+                    <div class="col-md-8">
+                        <i style="color: brown;font-size: 24px;">*</i>Email
+                        <input type="email" class="form-control" name="email" placeholder="Your Email" >
+                        <i style="color: brown;font-size: 24px;">*</i>Fullname
+                        <input type="text" class="form-control" name="fullname" placeholder="Name and Surname">
+                    </div>
+                    <br/>
+                </div>
+            </div>
             {% for key, value in data.items %}
                 <div class="card_1" id="card_{{ key }}" style="background: #fbf7f7;">
                     <div class="card-header">
@@ -44,13 +58,13 @@
                                     <!-- ##### III question item  ##### -->
                                     {% elif k == 'input' %}
                                         {% if 'button' in value.keys %}
-                                        {% for button in value.button %}
-                                            <div class="custom-radio">
-                                                <input type="radio" id="{{ key }}_{{ forloop.counter }}" name="{{ key }}" value="{{ button }}" {% if value.required %}required{% endif %}>
-                                                <label class="label-text" for="{{ key }}_{{ forloop.counter }}" >{{ button }}</label>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        {% endfor %}
+                                            {% for button in value.button %}
+                                                <div class="custom-radio">
+                                                    <input type="radio" id="{{ key }}_{{ forloop.counter }}" name="{{ key }}" value="{{ button }}" {% if value.required %}required{% endif %}>
+                                                    <label class="label-text" for="{{ key }}_{{ forloop.counter }}" >{{ button }}</label>
+                                                    <span class="checkmark"></span>
+                                                </div>
+                                            {% endfor %}
                                         {% else %}
                                             <div class="description" style="text-align: left;">
                                                 <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder="" {% if value.required %}required{% endif %}></textarea>

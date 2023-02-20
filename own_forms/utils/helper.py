@@ -98,19 +98,13 @@ def fill_form(request, pk, form_pk):
         if key == 'csrfmiddlewaretoken':
             continue
         if key == 'email':
-            if len(add_item) < 4 or "@" not in add_item:
-                messages.warning(request, 'Wrong email')
-                return redirect(f"/forms/{form_pk.id}/view")
-            email = add_item
             continue
-        elif key == 'name':
-            if len(add_item) < 1:
-                messages.warning(request, 'Name cannot be empty')
-                return HttpResponse
-            fullname = add_item
+        elif key == 'fullname':
             continue
         field_name = "_".join(key_parts[:3])
         if field_name not in my_dict:
+            if field_name == 'email' or field_name == 'fullname':
+                continue
             messages.warning(request, 'Something went wrong')
             return HttpResponse
         my_dict[field_name].append(add_item)

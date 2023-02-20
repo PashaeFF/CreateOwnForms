@@ -8,21 +8,25 @@
     <div class="col-md-10">
         {% for key, value in data.items %}
             {% for key_1, value_1 in filled.filled_form.items %}
+   
                 {% if key == key_1 %}
                     <div class="card_1" id="card_{{ key }}" style="background: #fbf7f7;">
                         <div class="card-header">
-                            {{ value.counter }}. Question > <font style="color:red">{{ value.title }}</font>
+                            {{ value.counter }}. {% if value.required %}<i style="color: brown;font-size: 24px;">*</i>{% endif %} {{ value.title }}
                         </div>
                         <div class="card-body">
-                            {% for question in }
-                            Answer > 
+                            {% if value.description %} {{ value.description }} {% endif %}
+                            {% if value.uploaded_image %}
+                                <hr>{% for image in value.uploaded_image %}<a href="{{ images_path }}{{ image }}"><img src="{{ images_path }}{{ image }}" style="width:240px;border-radius: 4px;"></a>{% endfor %}<hr>
+                            {% endif %}
+                            <hr>
                             {% for answer in value_1 %}
                                 {% if answer != True %}
-                                    <font style="color:rgb(1, 153, 29)">{{ answer }}</font>
+                                    <i class="fa fa-reply" style="color:rgb(0, 112, 21)" aria-hidden="true"></i> <font style="color:rgb(1, 153, 29)"><i>{{ answer }}</i><br/></font>
                                 {% endif %}
                             {% endfor %}
                             {% if value_1|length < 2 %}
-                                No answer was given
+                                <i style="color: brown;">No answer was given</i>
                             {% endif %}
                         </div>
                         <hr>

@@ -22,8 +22,8 @@ def index(request):
             return redirect('/forms')
         else:
             if form.is_valid():
-                # print(form['fullname'].value())
-                new_form = Form.objects.create(email=form['email'].value(), url=form['url'].value(), fullname=form['fullname'].value(), form_name=form['form_name'].value())
+                new_form = Form.objects.create(email=form['email'].value(), url=form['url'].value(),
+                                                fullname=form['fullname'].value(), form_name=form['form_name'].value())
                 new_form.save()
                 form_url = Form.objects.filter(url=form['url'].value()).first()
                 return redirect(f'/forms/{form_url.id}')
@@ -68,16 +68,27 @@ def get_form(request, pk=None):
         }
         #### filled form post request
         if request.method == 'POST':
+            email = request.POST['email']
+            if len(email) < 4 or "@" not in email:
+                messages.warning(request, 'Wrong email')
+                return redirect(f"/forms/{form_pk.id}/view")  
+            fullname = request.POST['fullname']
+            print("name", fullname, type(fullname), len(fullname))
+            if len(fullname) < 1:
+                messages.warning(request, 'Enter your name')
+                return redirect(f"/forms/{form_pk.id}/view")
             my_dict = fill_form(request, pk, form_pk)
             if type(my_dict) == dict:
-                FilledForms.objects.create(filled_form=fill_form(request, pk, form_pk), form_id_id=form_pk.id)
-                Form.objects.filter(id=form_pk.id).update(forms_count=form_pk.forms_count+1)
-                messages.success(request, 'Form filled successfull')
-                return redirect('/forms')
+                try:
+                    FilledForms.objects.create(email=email, fullname=fullname, filled_form=fill_form(request, pk, form_pk), form_id_id=form_pk.id)
+                    Form.objects.filter(id=form_pk.id).update(forms_count=form_pk.forms_count+1)
+                    messages.success(request, 'Form filled successfull')
+                    return redirect('/forms')
+                except:
+                    messages.warning(request, 'Something went wrong')
+                    return redirect(f"/forms/{form_pk.id}/view")  
             else:
                 return redirect(f"/forms/{form_pk.id}/view")
-
-       
         return HttpResponse(render(request, 'form.html', context))
     else:
         messages.warning(request, 'Form not found')
@@ -102,27 +113,24 @@ def get_the_list_of_filled_form(request, pk=None):
 
 
 def get_filled_form(request, pk=None, wk=None):
+    images_path = f'/static/media/{pk}/'
     form_pk = Form.objects.filter(id=pk).first()
     if form_pk:
         filled = FilledForms.objects.filter(id=wk).first()
         if filled:
             context = {
-            'title':form_pk.form_name,
-            'id':form_pk.id,
-            'url':form_pk.url,
-            'author':form_pk.fullname,
+            "title":form_pk.form_name,
+            "id":form_pk.id,
+            "url":form_pk.url,
+            "author":form_pk.fullname,
             "data":form_pk.values,
-            "filled":filled
+            "filled":filled,
+            "images_path":images_path
             }
             if len(filled.filled_form) < 1:
                 messages.warning(request, 'Form is empty')
                 return redirect(f'/forms/{form_pk.id}/list')
-            # print("form_pk len", len(form_pk.values))
             print("form_pk", form_pk.values)
-            # print("form >>>", filled.filled_form)
-            # print("form len >>>", len(filled.filled_form))
-
-            # messages.warning(request, 'var')
             return render(request, 'get_filled_form.html', context)
         messages.warning(request, 'Form not found')
         return redirect('/forms')
