@@ -1,3 +1,30 @@
+.page_info_card {
+  position: fixed;
+  width: 25%;
+  background-color: #25a531;
+  color:rgb(207, 255, 201);
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  padding: 0px;
+  right: 8%;
+  float: none;
+}
+
+@media only screen and (max-width: 900px) {
+.page_info_card {
+  position:static;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #25a531;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  margin: 0 auto;
+  margin-bottom: 5px;
+  }
+}
+
+  
 .info_card {
   width: 70%;
   background-color: #01ab12;
@@ -10,7 +37,7 @@
   margin-bottom: 10px;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 900px) {
 .info_card {
   bottom: 0;
   width: 100%;
@@ -24,6 +51,7 @@
   }
 }
 
+
 .card_1 {
   width: 70%;
   background-color: #f0f0f0;
@@ -35,7 +63,7 @@
   margin-top: 1px;
   margin-bottom: 10px;
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 900px) {
 .card_1 {
   bottom: 0;
   width: 100%;

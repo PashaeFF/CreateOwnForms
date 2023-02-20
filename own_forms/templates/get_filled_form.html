@@ -6,6 +6,24 @@
 <div class="container">
 <br/>
     <div class="col-md-10">
+        <div class="page_info_card" id="info_card">
+            <div class="card-header">
+                <i class="fa fa-user" style="color: rgb(19, 189, 3);font-size: 18px;"></i> User information
+            </div>
+            <div class="card-body">
+                <div class="col-md-8">
+                    <b>Email:</b><br/>
+                    <i style="color:black;">{{ filled.email }}</i><br/>
+                    <br/>
+                    <b>Fullname:</b><br/>
+                    <i style="color:black">{{ filled.fullname }}</i>
+                    <hr>
+                    <b>Form Name:</b>
+                    <i style="color:black">{{ title }}</i>
+                </div>
+                <br/>
+            </div>
+        </div>
         {% for key, value in data.items %}
             {% for key_1, value_1 in filled.filled_form.items %}
    
@@ -20,13 +38,19 @@
                                 <hr>{% for image in value.uploaded_image %}<a href="{{ images_path }}{{ image }}"><img src="{{ images_path }}{{ image }}" style="width:240px;border-radius: 4px;"></a>{% endfor %}<hr>
                             {% endif %}
                             <hr>
-                            {% for answer in value_1 %}
-                                {% if answer != True %}
-                                    <i class="fa fa-reply" style="color:rgb(0, 112, 21)" aria-hidden="true"></i> <font style="color:rgb(1, 153, 29)"><i>{{ answer }}</i><br/></font>
-                                {% endif %}
-                            {% endfor %}
                             {% if value_1|length < 2 %}
                                 <i style="color: brown;">No answer was given</i>
+                            {% else %}
+                            <i class="fa fa-reply" style="color:rgb(0, 112, 21)" aria-hidden="true"></i>
+                                {% for answer in value_1 %}
+                                    <font style="color:rgb(1, 153, 29)"><i>
+                                    {% if answer != True and not forloop.last %}
+                                        {{ answer }},
+                                    {% endif %}
+                                    {% if forloop.last %}
+                                        {{ answer }}
+                                    {% endif %}</i></font>
+                                {% endfor %}
                             {% endif %}
                         </div>
                         <hr>

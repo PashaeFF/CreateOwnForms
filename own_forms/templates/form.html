@@ -15,9 +15,26 @@
                 {% endfor %}
             </ul>
         {% endif %}
+        <div class="page_info_card">
+            <div class="card-header">
+                <i class="fa fa-info-circle" style="font-size:24px;"></i> Form info
+            </div>
+            <div class="card-body">
+                <div class="col-md-8">
+                    <b>Form name:</b><br/>
+                    <i style="color:black;">{{ title }}</i>
+                    <hr>
+                    <b>Author:</b><br/>
+                    <i style="color:black">{{ author }}</i><br/>
+                    <hr>
+                    <a href="{{ url }}" style="color:aqua">{{ url }}</a>
+                </div>
+            </div>
+            <hr>
+        </div>
         <form method="POST">
             {% csrf_token %}
-            <div class="info_card" id="info_card" style="background: #dfd5d5;">
+            <div class="info_card" id="info_card" style="background: #c6c5c5;">
                 <div class="card-header">
                     <i class="fa fa-user" style="color: rgb(19, 189, 3);font-size: 18px;"></i> Personal information
                 </div>
@@ -124,7 +141,7 @@
                                     {% elif k == 'allow' %}
                                         <label for="{{ key }}">Your own answer</label>
                                         <div class="description" style="text-align: left;">
-                                        <textarea class="{{ key }}" style="width:100%" id="{{ key }}" name="{{ key }}_{{ forloop.counter }}_text" {% if value.required %}oninput="toggleRequired('{{ key }}')" required{% endif %}></textarea>
+                                            <textarea class="form-control" style="width:100%" id="text_{{ key }}" name="{{ key }}_{{ forloop.counter }}" placeholder="" {% if value.required %}required{% endif %}></textarea>
                                         </div>
                                     {% endif %}
                                     <!--  ################ End Checkbox Field   ################  -->

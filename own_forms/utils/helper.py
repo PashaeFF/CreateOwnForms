@@ -112,5 +112,5 @@ def fill_form(request, pk, form_pk):
         if True in i:
             if len(i) < 2:
                 messages.warning(request, 'Required inputs cannot be empty')
-                return HttpResponse 
+                return HttpResponse
     return my_dict

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import FirstForm
 from django.contrib import messages
 from .models import Form, FilledForms
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from .utils.helper import check_values_for_add_form, fill_form
 import shutil
 # from django.core.files.uploadedfile import InMemoryUploadedFile
