@@ -114,7 +114,7 @@ def get_filled_form(request, pk=None, wk=None):
             "data":form_pk
         }
         if filled:
-            
+            print("var")
             messages.warning(request, 'var')
             return render(request, 'get_filled_form.html', context)
         messages.warning(request, 'Form not found')
