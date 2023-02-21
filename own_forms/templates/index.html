@@ -19,7 +19,7 @@
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td><a href="{{ form.url }}">{{ form.url }}</a></td>
-                        <td><a href="/forms/{{ form.id }}/view">{{ form.form_name }}</a></td>
+                        <td><a href="/forms/{{ form.id }}/view">{{ form.form_name }}</a>  |  <a href="/forms/{{ form.id }}/download"><i class="fa fa-file-excel-o" style="color:green" aria-hidden="true"></i></a></td>
                         <td><a href="/forms/{{ form.id }}/list">Filled forms</a> ({{ form.forms_count }})</td>
                         <td><a href="/forms/{{ form.id }}"><i class="fa fa-edit"></i></a> | <a href="/forms/{{ form.id }}/delete"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                     </tr>
