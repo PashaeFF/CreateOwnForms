@@ -10,6 +10,7 @@ class Form(models.Model):
     values = models.JSONField(default=dict)
     forms_count = models.IntegerField(default=0)
     image = models.ImageField(null=True, upload_to='media/images/')
+    xlsx_file = models.CharField(max_length=400, null=True)
     created_at = models.DateTimeField(default=now)
 
     class Meta:
@@ -24,6 +25,7 @@ class FilledForms(models.Model):
     fullname = models.CharField(max_length=250, null=True)
     filled_form = models.JSONField(default=dict)
     form_id = models.ForeignKey(Form, default=1, verbose_name="own_forms", on_delete=models.CASCADE)
+    xlsx_file = models.CharField(max_length=400, null=True)
     created_at = models.DateTimeField(default=now)
     counter = models.IntegerField(default=0)
 
