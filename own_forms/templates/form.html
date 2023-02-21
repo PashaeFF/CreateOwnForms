@@ -17,20 +17,22 @@
         {% endif %}
         <div class="page_info_card">
             <div class="card-header">
-                <i class="fa fa-info-circle" style="font-size:24px;"></i> Form info
+                <i class="fa fa-info-circle" style="font-size:24px;color: #fbf7f7;"></i> Form info
             </div>
-            <div class="card-body">
+            <div class="card-body" style="background-color: rgb(40, 40, 40);border-bottom: 0;border-radius: 5px;">
                 <div class="col-md-8">
-                    <b>Form name:</b><br/>
-                    <i style="color:black;">{{ title }}</i>
-                    <hr>
+                    <b>Form name:</b>
+                    <br/>
+                    <i style="color:rgb(255, 255, 255);">{{ title }}</i>
+                    <br/>
+                    <br/>
                     <b>Author:</b><br/>
-                    <i style="color:black">{{ author }}</i><br/>
-                    <hr>
+                    <i style="color:rgb(255, 255, 255)">{{ author }}</i><br/>
+                    <hr class="hr" style="width: 100%;">
+                    <br/>
                     <a href="{{ url }}" style="color:aqua">{{ url }}</a>
                 </div>
             </div>
-            <hr>
         </div>
         <form method="POST">
             {% csrf_token %}

@@ -130,7 +130,6 @@ def get_filled_form(request, pk=None, wk=None):
             if len(filled.filled_form) < 1:
                 messages.warning(request, 'Form is empty')
                 return redirect(f'/forms/{form_pk.id}/list')
-            print("form_pk", form_pk.values)
             return render(request, 'get_filled_form.html', context)
         messages.warning(request, 'Form not found')
         return redirect('/forms')

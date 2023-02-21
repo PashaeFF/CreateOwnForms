@@ -1,3 +1,4 @@
 djangorestframework
 django-admin
 Pillow  
+xlsxwriter
