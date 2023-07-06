@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework', # new
     'own_forms', # new
-    'embed_video', #new
 ]
 
 MIDDLEWARE = [
