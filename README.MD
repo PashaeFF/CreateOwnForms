@@ -8,7 +8,7 @@
 <hr>
 
 - İnstallation/Quraşdırılma
-- [Azərbaycanca quraşdırılma](#azərbaycanca-quraşdırılma)  |  [İnstallation English](#installation-in-english)
+- [İnstallation](#installation)
 - [Author](#author)
 - [Version](#version)
 ___
@@ -138,6 +138,16 @@ ___
 *<b>Extract from completed form to excel file:</b>
 
 ![alt text](/docs/xlsx.png)
+
+
+# Installation
+
+<code>python3 -m venv <venv\> </code><br/>
+<code>source <venv\>/bin/activate</code> (MacOS/Linux)<br/>
+<code><venv\>/Scripts/activate</code> (Windows)<br/> 
+<code>pip install -r requirements.txt</code><br/>
+<code>python manage.py runserver</code><br/> 
+
 ____
 
 # Author
